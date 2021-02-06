@@ -14,16 +14,16 @@ function doLogin($username,$password)
 
 function requestProcessor($request)
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
   echo "received request".PHP_EOL;
   var_dump($request);
   if(!isset($request['type']))
   {
     return "ERROR: unsupported message type";
   }
-  fwrite($logs, $request['message']); //write message to log file
-  fwrite($logs, "\n"); //newline
-  fclose($logs);//close
+  fwrite($logs, $request['message']);
+  fwrite($logs, "\n");
+  fclose($logs);
   switch ($request['type'])
   {
     case "login":	  
