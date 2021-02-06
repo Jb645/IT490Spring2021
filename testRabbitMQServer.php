@@ -14,23 +14,28 @@ function doLogin($username,$password)
 
 function requestProcessor($request)
 {
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
   echo "received request".PHP_EOL;
   var_dump($request);
   if(!isset($request['type']))
   {
     return "ERROR: unsupported message type";
   }
+  fwrite($logs, $request['message']);
+  fwrite($logs, "\n");
+  fclose($logs);
   switch ($request['type'])
   {
-    case "login":
+    case "login":	  
       return doLogin($request['username'],$request['password']);
     case "validate_session":
       return doValidate($request['sessionId']);
   }
-  return array("returnCode" => '0', 'message'=>"Server received request and processed");
+  return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
+
 echo "testRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
 echo "testRabbitMQServer END".PHP_EOL;
