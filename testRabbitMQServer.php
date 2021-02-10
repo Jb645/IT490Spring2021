@@ -16,23 +16,17 @@ function requestProcessor($request)
 {
   $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
   echo "received request".PHP_EOL;
-  var_dump($request);
-  ob_start();
-  var_dump($request);
-  $info = ob_get_clean();
+  var_dump($request); //display request info
+  ob_start(); //Output buffering
+  var_dump($request); //2nd var dump, captured by output buffering for logging
+  $info = ob_get_clean(); //
   if(!isset($request['type']))
   {
     return "ERROR: unsupported message type";
   }
-  fwrite($logs, date("\nh:i:sa"));  
-  fwrite($logs, "\n___________\n");
-  fwrite($logs, $info);
-  // fwrite($logs, implode("\n",$request));
- /* foreach ($request as $value)
-  {
-  	fwrite($logs, $value); //write message to log file
-  	fwrite($logs, "\n"); //newline
-  }*/
+  fwrite($logs, date("\nh:i:sa")); //write time of request
+  fwrite($logs, "\n___________\n"); //formatting
+  fwrite($logs, $info); //take caputured var dump and write to file 
   fclose($logs);//close
   switch ($request['type'])
   {
