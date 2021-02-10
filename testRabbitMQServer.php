@@ -4,6 +4,13 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
+function customError($errno, $errstr)
+{
+  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  fwrite($logs, "<b>ERROR:</b> [$errno] $errstr<br>");
+  echo "<b>ERROR:</b> [$errno] $errstr<br>";
+}
+
 function doLogin($username,$password)
 {
     // lookup username in databas
@@ -22,6 +29,7 @@ function requestProcessor($request)
   $info = ob_get_clean(); //
   if(!isset($request['type']))
   {
+    fwrite($logs, "ERROR: unsupported message type");	
     return "ERROR: unsupported message type";
   }
   fwrite($logs, date("\nh:i:sa")); //write time of request
@@ -37,6 +45,8 @@ function requestProcessor($request)
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
+
+set_error_handler("customError",E_USER_WARNING);
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
 
