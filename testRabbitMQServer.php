@@ -21,7 +21,7 @@ function doLogin($username,$password)
 
 function requestProcessor($request)
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
   echo "received request".PHP_EOL;
   var_dump($request); //display request info
   ob_start(); //Output buffering
@@ -32,10 +32,16 @@ function requestProcessor($request)
     fwrite($logs, "ERROR: unsupported message type");	
     return "ERROR: unsupported message type";
   }
+<<<<<<< HEAD
   fwrite($logs, date("\nh:i:sa")); //write time of request
   fwrite($logs, "\n___________\n"); //formatting
   fwrite($logs, $info); //take caputured var dump and write to file 
   fclose($logs);//close
+=======
+  fwrite($logs, $request['message']);
+  fwrite($logs, "\n");
+  fclose($logs);
+>>>>>>> 8d6213eda30245c243930086b08f9cc175f0e9d3
   switch ($request['type'])
   {
     case "login":	  
@@ -51,10 +57,15 @@ set_error_handler("customError",E_USER_WARNING);
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 echo "testRabbitMQServer BEGIN".PHP_EOL;
 =======
 >>>>>>> b2fa965c7a9b351b129f96eca4076cb0ae2c1dd4
+=======
+echo "testRabbitMQServer BEGIN".PHP_EOL;
+>>>>>>> 8d6213eda30245c243930086b08f9cc175f0e9d3
 $server->process_requests('requestProcessor');
+echo "testRabbitMQServer END".PHP_EOL;
 exit();
 ?>
 
