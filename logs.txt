@@ -1,0 +1,65 @@
+
+09:26:38am
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
+
+09:27:49am
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
+
+09:28:48am
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
+
+09:29:04am
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
+
+09:30:39am
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
