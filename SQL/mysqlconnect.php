@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-$mydb = new mysqli('127.0.0.1','testUser','12345','testdb');
+$mydb = new mysqli('25.14.14.158','Josue','potato','PongTest');
 
 if ($mydb->errno != 0)
 {
@@ -11,7 +11,7 @@ if ($mydb->errno != 0)
 
 echo "successfully connected to database".PHP_EOL;
 
-$query = "select * from testtable;";
+$query = "select * from PongUsers;";
 
 $response = $mydb->query($query);
 if ($mydb->errno != 0)
@@ -29,3 +29,4 @@ while ($row = $response->fetch_row())
 }
 echo "test complete".PHP_EOL;
 ?>
+
