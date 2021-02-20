@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 # Python program to find current
 # weather details of any city
 # using openweathermap api
