@@ -63,3 +63,16 @@ array(4) {
   ["message"]=>
   string(12) "test message"
 }
+
+07:43:46pm
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(5) "steve"
+  ["password"]=>
+  string(8) "password"
+  ["message"]=>
+  string(12) "test message"
+}
