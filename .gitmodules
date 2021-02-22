@@ -1,0 +1,3 @@
+[submodule "NetworkingTutorial"]
+	path = NetworkingTutorial
+	url = https://github.com/ShrineGames/NetworkingTutorial.git
