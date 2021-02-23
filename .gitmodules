@@ -1,3 +1,6 @@
 [submodule "NetworkingTutorial"]
 	path = NetworkingTutorial
 	url = https://github.com/ShrineGames/NetworkingTutorial.git
+[submodule "IT490Unity"]
+	path = IT490Unity
+	url = https://github.com/trc22/IT490Unity.git
