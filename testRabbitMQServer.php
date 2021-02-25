@@ -9,18 +9,26 @@ function doLogin($username,$password)
 {
     // lookup username in databas
     // check password
-    return true;
+    if(true)   
+    {
+      return true;
+    }
+    else
+    {
+      logData("ERROR: Login information not valid");
+      return false
+    }
     //return false if not valid
 }
 
 function requestProcessor($request)
 {
   var_dump($request);
-  logRequest($request);
+  logRequest($request); //Writes the request info to logs.txt
   echo "received request".PHP_EOL;
   if(!isset($request['type']))
   {
-    logData("ERROR: unsupported message type");	
+    logData("ERROR: unsupported message type"); //Writes error to logs	
     return "ERROR: unsupported message type";
   }
   switch ($request['type'])

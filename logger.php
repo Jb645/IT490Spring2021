@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-function customError($errno, $errstr)
+function customError($errno, $errstr) //basic error checking
 {
   logData("<b>ERROR:</b> [$errno] $errstr<br>");
   echo "<b>ERROR:</b> [$errno] $errstr<br>";
@@ -9,12 +9,13 @@ function customError($errno, $errstr)
 
 function logRequest($request) //Takes request and writes it to file
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
 
-  ob_start(); //Output buffering
+  ob_start(); //Output buffering used to capture request info
   var_dump($request); //2nd var dump, captured by output buffering for logging
   $info = ob_get_clean(); //store captured data
 
+  fwrite($logs, "\n[Request begin]"); //formatting
   fwrite($logs, date("\nh:i:sa")); //write time of request
   fwrite($logs, "\n___________\n"); //formatting
 
@@ -23,9 +24,9 @@ function logRequest($request) //Takes request and writes it to file
   fclose($logs);//close
 }
 
-function logData($string)
+function logData($string) //appends data to logs
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
   fwrite($logs, $string);
   fclose($logs);
 }
