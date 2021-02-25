@@ -14,6 +14,7 @@ echo " [*] Waiting for messages. To exit press CTRL+C\n";
 $callback = function ($msg) {
     echo ' [x] Received ', $msg->body, "\n";
     sleep(substr_count($msg->body, '.'));
+    exec ('/home/sean/Documents/Projects/IT490Spring2021/SQL/testLocalConnect.php');
     echo " [x] Done\n";
     $msg->ack();
 };
