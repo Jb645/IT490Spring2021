@@ -6,8 +6,7 @@ require_once('rabbitMQLib.inc');
 
 function customError($errno, $errstr)
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
-  fwrite($logs, "<b>ERROR:</b> [$errno] $errstr<br>");
+  logData("<b>ERROR:</b> [$errno] $errstr<br>");
   echo "<b>ERROR:</b> [$errno] $errstr<br>";
 }
 
@@ -21,21 +20,14 @@ function doLogin($username,$password)
 
 function requestProcessor($request)
 {
-  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  var_dump($request);
+  logRequest($request);
   echo "received request".PHP_EOL;
-  var_dump($request); //display request info
-  ob_start(); //Output buffering
-  var_dump($request); //2nd var dump, captured by output buffering for logging
-  $info = ob_get_clean(); //
   if(!isset($request['type']))
   {
-    fwrite($logs, "ERROR: unsupported message type");	
+    logData("ERROR: unsupported message type");	
     return "ERROR: unsupported message type";
   }
-  fwrite($logs, date("\nh:i:sa")); //write time of request
-  fwrite($logs, "\n___________\n"); //formatting
-  fwrite($logs, $info); //take caputured var dump and write to file 
-  fclose($logs);//close
   switch ($request['type'])
   {
     case "login":	  
@@ -44,6 +36,29 @@ function requestProcessor($request)
       return doValidate($request['sessionId']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
+}
+
+function logRequest($request) //Takes request and writes it to file
+{
+  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+
+  ob_start(); //Output buffering
+  var_dump($request); //2nd var dump, captured by output buffering for logging
+  $info = ob_get_clean(); //store captured data
+
+  fwrite($logs, date("\nh:i:sa")); //write time of request
+  fwrite($logs, "\n___________\n"); //formatting
+  
+  fwrite($logs, $info); //take caputured var dump and write to file 
+  
+  fclose($logs);//close
+}
+
+function logData($string)
+{
+  $logs = fopen("logs.txt", "a") or die("Unable to open file."); //open logs
+  fwrite($logs, $string);
+  fclose($logs);
 }
 
 set_error_handler("customError",E_USER_WARNING);
