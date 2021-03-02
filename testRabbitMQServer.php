@@ -9,15 +9,12 @@ function doLogin($username,$password)
 {
     // lookup username in databas
     // check password
-    if(true)   
-    {
-      return true;
-    }
-    else
+    if(false)
     {
       logData("ERROR: Login information not valid");
-      return false
+      return false;
     }
+    return true;
     //return false if not valid
 }
 
