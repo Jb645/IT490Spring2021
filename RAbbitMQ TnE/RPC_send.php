@@ -50,7 +50,7 @@ class FibonacciRpcClient
         }
     }
 
-    public function call($n)
+    public function call($n='California')
     {
         $this->response = null;
         $this->corr_id = uniqid();
@@ -71,6 +71,6 @@ class FibonacciRpcClient
 }
 
 $fibonacci_rpc = new FibonacciRpcClient();
-$response = $fibonacci_rpc->call(30);
+$response = $fibonacci_rpc->call('California');
 echo ' [.] Got ', $response, "\n";
 ?>

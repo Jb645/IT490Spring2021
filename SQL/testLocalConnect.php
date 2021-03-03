@@ -11,7 +11,7 @@ if ($mydb->errno != 0)
 
 echo "successfully connected to database".PHP_EOL;
 
-$query = "select * from PongUsers;";
+$query = "Insert into PongUsers values (2,'player2','nopassword');";
 
 $response = $mydb->query($query);
 if ($mydb->errno != 0)

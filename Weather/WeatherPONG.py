@@ -6,16 +6,18 @@
 # import required modules
 import json
 import requests
+import sys
+firstarg=sys.argv[1]
 
 
 # Enter your API key here
-api_key = "CHANGE_API_KEY_WHEN_PULLED"
+api_key = "fe754cb6eff23a97be405decbd579df0"
 
 # base_url variable to store url
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 # Give city name
-city_name = input("Enter city name : ")
+city_name = firstarg
 
 # complete_url variable to store
 # complete url address
