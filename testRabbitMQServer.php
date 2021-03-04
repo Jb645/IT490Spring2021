@@ -7,15 +7,15 @@ require_once('logger.php');
 
 function doLogin($username,$password)
 {
-    // lookup username in databas
-    // check password
-    if(false)
-    {
-      logData("ERROR: Login information not valid");
-      return false;
-    }
-    return true;
-    //return false if not valid
+  try 
+  {
+   //connect to DB
+  }
+  catch(Exception $e)
+  {
+    logData($e->getMessage());
+    exit();
+  }
 }
 
 function requestProcessor($request)
