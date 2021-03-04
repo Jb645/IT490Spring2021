@@ -687,3 +687,29 @@ array(4) {
   ["message"]=>
   string(15) "does this work2"
 }
+
+07:36:02pm
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(4) "root"
+  ["password"]=>
+  string(5) "12345"
+  ["message"]=>
+  string(12) "test message"
+}
+
+07:36:02pm
+___________
+array(4) {
+  ["type"]=>
+  string(5) "Login"
+  ["username"]=>
+  string(4) "root"
+  ["password"]=>
+  string(5) "12345"
+  ["message"]=>
+  string(12) "test message"
+}

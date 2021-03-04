@@ -20,7 +20,7 @@ private $corr_id;
   //make a connection to the channel on the server
   $this->channel = $this->connection->channel();
 
-  //This is the queue, not sure why the queue section is blank
+  //This is the queue, not sure why the queue section is blank, get every Q i think but only answers to the one at the bottom
   list($this->callback_queue, ,) = $this->channel->queue_declare('', false, true, false, false);
 
   //I think this is how to get the response from consumer
@@ -40,7 +40,7 @@ private $corr_id;
 
   $msg = new AMQPMessage((string) $n,array('correlation_id'=>$this->corr_id,'reply_to'=>$this->callback_queue));
 
-  $this->channel->basic_publish($msg,'','rpc_queue');
+  $this->channel->basic_publish($msg,'','Weather');
 
   while(!$this->response){
     $this->channel->wait();

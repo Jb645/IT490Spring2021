@@ -7,7 +7,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 $connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test');
 $channel = $connection->channel();
 
-$channel->queue_declare('rpc_queue', false, false, false, false);
+$channel->queue_declare('Weather', false, false, false, false);
 
 function returnCall($n){
   echo ' [x] Received ',$n, "\n";
@@ -41,7 +41,7 @@ $callback = function ($msg) {
 };
 */
 $channel->basic_qos(null, 1, null);
-$channel->basic_consume('rpc_queue', '', false, false, false, false, $callback);
+$channel->basic_consume('Weather', '', false, false, false, false, $callback);
 
 while ($channel->is_consuming()) {
     $channel->wait();
