@@ -9,6 +9,8 @@ session_start();
 	<br>Welcome: <?php echo $_SESSION['login']; ?> <br>
 	<a href = "leaderboards.php"> Leaderboards </a> <br>
 	<a href = "matchmaking.php"> Suggest opponent </a> <br>
+	<a href = "friends.php"> View friends </a> <br>
+	<a href = "chat.php"> Chat </a> <br>
 	<a href = "exit.php"> Exit </a> <br>
 	</body>
 </html>
