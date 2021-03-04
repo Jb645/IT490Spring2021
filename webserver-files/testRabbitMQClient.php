@@ -19,11 +19,11 @@ function amqpLoginRequest($username, $password)
   $request['message'] = $msg;
   $response = $client->send_request($request);
   //$response = $client->publish($request);
-
   echo "client received response: ".PHP_EOL;
   echo "\n\n";
+  return $response['returnCode'];
 }
-$USER = $_GET['username']; 
+/*$USER = $_GET['username']; 
 $PASS = $_GET['password'];
 amqpLoginRequest($USER, $PASS);
-
+*/

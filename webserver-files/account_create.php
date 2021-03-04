@@ -1,17 +1,17 @@
 <html>
 	<head>
-		<title>Weather Pong - Login</title>
+		<title>Make account</title>
 	</head>
 	<body>
-	<h1> Weather Pong - Login </h1>
-		<form name="loginform" id="myForm" method="POST">
+	<h1> Create an account</h1>
+		<form name="create" id="myForm" method="POST">
 			<label for="username">Username: </label>
 			<input type="username" id="username" name="username" placeholder="Enter Username"/>
 			<label for="pass">Password: </label>
 			<input type="password" id="pass" name="password" placeholder="Enter password"/>
-			<input type="submit" value="Login"/>
+			<input type="submit" value="Create"/>
 		</form>
-		<br><br> <a href="account_create.php"> Create an account </a>
+		<br><br> <a href="index.php"> Login</a>
 	</body>
 </html>
 <?php 
@@ -26,7 +26,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	
 	require("testRabbitMQClient.php");
 	try {
-		$response = amqpLoginRequest($username, $password);
+		//$response = amqpLoginRequest($username, $password);
 	}
 	catch(Exception $e){
 		echo $e->getMessage();
@@ -35,12 +35,11 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	
 	if($response == 0)
 	{
-		$_SESSION['login'] = $username;
-		header("Location: loggedIn.php");
+		echo "Account created!";
 	}
 	else
 	{
-		echo "login failed";
+		echo "Name is taken";
 	}
 }	
 ?> 
