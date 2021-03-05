@@ -13,9 +13,9 @@ function doLogin($username,$password)
     //return false if not valid
 }
 
-function getWeather()
+function getWeather($location)
 {
-  $output = shell_exec("python3 RAbbitMQ-TnE/WeatherPONG.py "."westwood");
+  $output = shell_exec("python3 RAbbitMQ-TnE/WeatherPONG.py ". $location);
   if(!isset ($output))
   {
     logData("No data recieved from weather API");	  
@@ -43,7 +43,7 @@ function requestProcessor($request)
     case "validate_session":
       return doValidate($request['sessionId']);
     case "weather":
-      return $weather_output = getWeather();
+      return $weather_output = getWeather( $request['location']);
   }
 
   if(isset($weather_output))
