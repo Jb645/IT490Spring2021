@@ -13,6 +13,19 @@ function doLogin($username,$password)
     //return false if not valid
 }
 
+function getWeather()
+{
+  $output = shell_exec("python3 RAbbitMQ-TnE/WeatherPONG.py "."westwood");
+  if(!isset ($output))
+  {
+    logData("No data recieved from weather API");	  
+  }
+  $output = preg_split('/\r\n|\n/', $output);
+  $weather = array((float) filter_var( $output[0], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION), substr($output[3],15));
+  LogData("Temp: " . $weather[0] ." | Desc: ". $weather[1] ."\n");
+  return;
+}
+
 function requestProcessor($request)
 {
   var_dump($request);
@@ -29,6 +42,8 @@ function requestProcessor($request)
       return doLogin($request['username'],$request['password']);
     case "validate_session":
       return doValidate($request['sessionId']);
+    case "weather":
+      return getWeather();
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
