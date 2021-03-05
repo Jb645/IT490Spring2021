@@ -23,7 +23,7 @@ function getWeather()
   $output = preg_split('/\r\n|\n/', $output);
   $weather = array((float) filter_var( $output[0], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION), substr($output[3],15));
   LogData("Temp: " . $weather[0] ." | Desc: ". $weather[1] ."\n");
-  return;
+  return $weather;
 }
 
 function requestProcessor($request)
@@ -43,8 +43,12 @@ function requestProcessor($request)
     case "validate_session":
       return doValidate($request['sessionId']);
     case "weather":
-      return getWeather();
+      return $weather_output = getWeather();
   }
+
+  if(isset($weather_output))
+	  return $weather_output;
+  
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
 
