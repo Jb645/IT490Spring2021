@@ -12,7 +12,7 @@ $channel->queue_declare('Weather', false, false, false, false);
 function returnCall($n){
   echo ' [x] Received ',$n, "\n";
 
-  $output = shell_exec("python3 WeatherPONG.py ".$n);
+  $output = shell_exec("python3 History.py ".$n);
 
   return $output;
 

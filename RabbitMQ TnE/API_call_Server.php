@@ -24,7 +24,7 @@ private $corr_id;
   list($this->callback_queue, ,) = $this->channel->queue_declare('', false, true, false, false);
 
   //I think this is how to get the response from consumer
-  $this->channel->basic_consume($this->callback_queue,'',false,true,false,false,array($this,'onResponse'));
+  $this->channel->basic_consume($this->callback_queue,'Weather',false,true,false,false,array($this,'onResponse'));
 
 }
 
