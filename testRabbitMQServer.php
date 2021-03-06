@@ -26,6 +26,11 @@ function getWeather($location)
   return $weather;
 }
 
+function insertResults($request)
+{
+  var_dump($request);
+}
+
 function requestProcessor($request)
 {
   var_dump($request);
@@ -44,6 +49,8 @@ function requestProcessor($request)
       return doValidate($request['sessionId']);
     case "weather":
       return $weather_output = getWeather( $request['location']);
+    case "results":
+      return $results = insertResults($request);
   }
 
   if(isset($weather_output))

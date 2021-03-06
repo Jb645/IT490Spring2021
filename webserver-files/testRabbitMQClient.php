@@ -66,6 +66,31 @@ function amqpWeather($location)
   return $response;
 }
 
+function amqpGameResults($winner, $loser, $winscore, $losescore, $weather)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Results for game";
+  }
+  $request = array();
+  $request['type'] = "results";
+  $request['winner'] = $winner;
+  $request['loser'] = $loser;
+  $request['wscore'] = $winscore;
+  $request['lscore'] = $losescore;
+  $request['weather'] = $weather;
+  $response = $client->send_request($request);
+  echo "client received response: ".PHP_EOL;
+  echo "\n\n";
+  return $response;
+
+}
+
 /*$USER = $_GET['username']; 
 $PASS = $_GET['password'];
 amqpLoginRequest($USER, $PASS);
