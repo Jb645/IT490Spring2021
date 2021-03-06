@@ -51,6 +51,12 @@ function requestProcessor($request)
       return $weather_output = getWeather( $request['location']);
     case "results":
       return $results = insertResults($request);
+    case "friendslist"
+      return;
+    case "addfriend"
+      return;
+    case "rmfriend"
+      return;
   }
 
   if(isset($weather_output))

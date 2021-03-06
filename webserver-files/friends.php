@@ -30,9 +30,13 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+require("testRabbitMQClient.php");
+
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
+	$username = $_SESSION['login'];
 	echo "Session is good.\n";
+	amqpFriendslist($username);
 }
 else
 {
