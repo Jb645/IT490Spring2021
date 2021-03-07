@@ -26,14 +26,14 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	
 	require("testRabbitMQClient.php");
 	try {
-		//$response = amqpLoginRequest($username, $password);
+		$response = amqpCreateAccount($username, $password);
 	}
 	catch(Exception $e){
 		echo $e->getMessage();
 		exit();
 	}
 	
-	if($response == 0)
+	if($response == '0')
 	{
 		echo "Account created!";
 	}
@@ -41,5 +41,9 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	{
 		echo "Name is taken";
 	}
-}	
+}
+else
+{
+	echo "Field left blank.";
+}
 ?> 

@@ -13,6 +13,12 @@ function doLogin($username,$password)
     //return false if not valid
 }
 
+function createAccount($usernmane, $password)
+{
+  //Insert account info into DB
+  return true; //Return true on success
+}
+
 function getWeather($location)
 {
   $output = shell_exec("python3 RAbbitMQ-TnE/WeatherPONG.py ". $location);
@@ -28,7 +34,26 @@ function getWeather($location)
 
 function insertResults($request)
 {
-  var_dump($request);
+  //SQL insert results into DB
+  return true; //Return true on success
+}
+
+function getFriends($username)
+{
+  //SQL retrieve list of friends from DB
+  return true; //Return true on success
+}
+
+function addFriend($username, $target)
+{
+  //SQL insert target into username's friends list
+  return true; //Return true on success
+}
+
+function rmFriend($username, $target)
+{
+  //SQL remove target from username's friend's list
+  return true; //Return true on success
 }
 
 function requestProcessor($request)
@@ -47,16 +72,19 @@ function requestProcessor($request)
       return doLogin($request['username'],$request['password']);
     case "validate_session":
       return doValidate($request['sessionId']);
+    case "create_account":
+      return createAccount($request['username'], $request['password']);
     case "weather":
       return $weather_output = getWeather( $request['location']);
     case "results":
       return $results = insertResults($request);
-    case "friendslist"
-      return;
-    case "addfriend"
-      return;
-    case "rmfriend"
-      return;
+    case "friendslist":
+      return getFriends($request['username']);
+    case "addfriend":
+      return addFriend($request['username'], $request['target']);
+    case "rmfriend":
+      return rmFriend($request['username'], $request['target']);
+    
   }
 
   if(isset($weather_output))
