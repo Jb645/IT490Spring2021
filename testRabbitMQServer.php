@@ -33,8 +33,7 @@ function requestProcessor($request)
     case "addfriend":
       return addFriend($request['username'], $request['target']);
     case "rmfriend":
-      return rmFriend($request['username'], $request['target']);
-    
+      return rmFriend($request['username'], $request['target']); 
   }
 
   if(isset($weather_output))

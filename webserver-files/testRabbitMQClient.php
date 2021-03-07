@@ -13,7 +13,7 @@ function amqpLoginRequest($username, $password)
     $msg = "Login request for: " . $username;
   }
   $request = array();
-  $request['type'] = "Login";
+  $request['type'] = "login";
   $request['username'] = $username;
   $request['password'] = $password;
   $request['message'] = $msg;
@@ -21,7 +21,7 @@ function amqpLoginRequest($username, $password)
   //$response = $client->publish($request);
   echo "client received response: ".PHP_EOL;
   echo "\n\n";
-  return $response['returnCode'];
+  return $response;
 }
 
 function amqpCreateAccount($username, $password)
@@ -36,7 +36,7 @@ function amqpCreateAccount($username, $password)
     $msg = "Creating account for " . $username;
   }
   $request = array();
-  $request['type'] = "Login";
+  $request['type'] = "create_account";
   $request['username'] = $username;
   $request['password'] = $password;
   $request['message'] = $msg;
@@ -44,7 +44,7 @@ function amqpCreateAccount($username, $password)
   //$response = $client->publish($request);
   echo "client received response: ".PHP_EOL;
   echo "\n\n";
-  return $response['returnCode'];
+  return $response;
 }
 
 function amqpLeaderboard()

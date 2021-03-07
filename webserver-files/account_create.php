@@ -32,8 +32,8 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 		echo $e->getMessage();
 		exit();
 	}
-	
-	if($response == '0')
+	var_dump($response);
+	if($response)
 	{
 		echo "Account created!";
 	}

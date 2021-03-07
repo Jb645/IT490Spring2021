@@ -32,8 +32,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 		echo $e->getMessage();
 		exit();
 	}
-	
-	if($response == 0)
+	if($response)
 	{
 		$_SESSION['login'] = $username;
 		header("Location: loggedIn.php");

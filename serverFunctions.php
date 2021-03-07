@@ -10,7 +10,7 @@ function doLogin($username,$password)
     //return false if not valid
 }
 
-function createAccount($usernmane, $password)
+function createAccount($username, $password)
 {
   //Insert account info into DB
   return true; //Return true on success
