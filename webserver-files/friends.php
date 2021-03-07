@@ -8,21 +8,6 @@ session_start();
 	<body>
 	
 	<br>Friends list:<br><br>
-	<form name="add" id="addForm" method="POST">
-	<label for="addfriend">Add friend: </label>
-	<input type="addfriend" id="addfriend" name="addfriend" placeholder="Add friend"/>
-	<input type="submit" value="Add friend"/>
-		</form>
-		
-	<br>
-	
-	<form name="remove" id="removeForm" method="POST">
-	<label for="removefriend">Add friend: </label>
-	<input type="removefriend" id="removefriend" name="removefriend" placeholder="Remove friend"/>
-	<input type="submit" value="Remove friend"/>
-		</form>
-		
-	<a href = "loggedIn.php"> Back</a> <br>
 	</body>
 </html>
 <?php 
@@ -32,9 +17,10 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 require("testRabbitMQClient.php");
 
+$username = $_SESSION['login'];
+
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
-	$username = $_SESSION['login'];
 	echo "Session is good.\n";
 	amqpFriendslist($username);
 }
@@ -42,17 +28,12 @@ else
 {
 	header("Location: index.php");
 }
-if(isset($_POST['addfriend']) && !isset($_POST['removefriend']) && !empty($_POST['addfriend'])){
-	$added = $_POST['addfriend'];
-
-
-	echo $added . " has been added";
-}
-
-if(isset($_POST['removefriend']) && !isset($_POST['addfriend']) && !empty($_POST['removefriend'])){
-	$removed = $_POST['removefriend'];
-
-
-	echo $removed . " has been removed";
-}
 ?> 
+<html>
+<body>
+<br>
+<a href = "modify-friends.php"> Add/remove friends</a> <br>
+<br><br>
+<a href = "loggedIn.php"> Back</a> <br>
+</body>
+</html>
