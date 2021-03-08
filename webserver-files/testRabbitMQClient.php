@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 require_once('rabbitMQLib.inc');
 function amqpLoginRequest($username, $password)

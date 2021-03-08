@@ -10,8 +10,7 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 	if(isset($response))
 	{
-		echo ($response[0]);
-		echo ($response[1]);
+		echo ($response[0] ."|". $response[1]);
 	}
 	else
 	{

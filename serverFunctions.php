@@ -18,6 +18,11 @@ function createAccount($username, $password)
 
 function getWeather($location)
 {
+  if(!isset($location))
+  {
+     logData("ERROR: Input is null");
+     return NULL;
+  }
   $output = shell_exec("python3 RAbbitMQ-TnE/WeatherPONG.py ". $location);
   if(!isset ($output))
   {
