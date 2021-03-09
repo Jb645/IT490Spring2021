@@ -1,91 +1,52 @@
 #!/usr/bin/php
 <?php
-
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Weather{
+$connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test');
+$channel = $connection->channel();
 
-private $connection;
-private $channel;
-private $callback_queue;
-private $response;
-private $corr_id;
+$channel->queue_declare('Weather', false, false, false, false);
 
-  public function __construct(){
-    //connection string
-    $this->connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test');
+function returnCall($n){
+  echo ' [x] Received ',$n, "\n";
 
-  //make a connection to the channel on the server
-  $this->channel = $this->connection->channel();
+  $output = shell_exec("python3 History.py ".$n);
 
-  //This is the queue, not sure why the queue section is blank, get every Q i think but only answers to the one at the bottom
-  list($this->callback_queue, ,) = $this->channel->queue_declare('', false, true, false, false);
-
-  //I think this is how to get the response from consumer
-  $this->channel->basic_consume($this->callback_queue,'Weather',false,true,false,false,array($this,'onResponse'));
+  return $output;
 
 }
 
-  public function onResponse($rep){
+echo " [*] Waiting for messages. To exit press CTRL+C\n";
+$callback = function($req){
+  $n = $req->body;
+  echo 'this is the return',$n;
 
-    if ($rep->get('correlation_id')==$this->corr_id){
-        $this->response = $rep->body;
-    }
-  }
-  public function call($n){
-    $this->response = null;
-    $this->corr_id = uniqid();
+  $msg = new AMQPMessage((string) returnCall($n),array('correlation_id'=>$req->get('correlation_id')));
 
-  $msg = new AMQPMessage((string) $n,array('correlation_id'=>$this->corr_id,'reply_to'=>$this->callback_queue));
+  $req->delivery_info['channel']->basic_publish($msg,'',$req->get('reply_to'));
+  $req->ack();
 
-  $this->channel->basic_publish($msg,'','Weather');
+};
 
-  while(!$this->response){
-    $this->channel->wait();
-  }
-  return $this->response;
-
-
-  }
-
-}
-//Connection string
-//$connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test');
-
-//connects to the channel
-//$channel = $connection->channel();
-
-//chooses the queue and the type of message its gonna send
-//$channel->queue_declare('task_queue', false, true, false, false);
-
-$data = implode(' ', array_slice($argv, 1));
-if (empty($data)) {
-    $data = "Washington";
-}
 /*
-$msg = new AMQPMessage(
-    $data,
-    array('delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT)
-);
-
-$channel->basic_publish($msg, '', 'task_queue');
-
-echo ' [x] Sent ', $data, "\n";
+$callback = function ($msg) {
+    echo ' [x] Received ', $msg->body, "\n";
+    sleep(substr_count($msg->body, '.'));
+    $output = shell_exec("python3 WeatherPONG.py ".$msg->body);
+    var_dump($output);
+    echo " [x] Done\n";
+    $msg->ack();
+};
 */
+$channel->basic_qos(null, 1, null);
+$channel->basic_consume('Weather', '', false, false, false, false, $callback);
 
+while ($channel->is_consuming()) {
+    $channel->wait();
+}
 
-
-
-
-$API_call = new Weather();
-$response = $API_call->call($data);
-
-echo'[x]',$response, "\n";
-
-
-//Don't close connection to be able to get message back
-//$channel->close();
-//$connection->close();
+$channel->close();
+$connection->close();
 ?>
