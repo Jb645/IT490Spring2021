@@ -37,6 +37,11 @@ function getWeather($location)
 function insertResults($request)
 {
   //SQL insert results into DB
+  $request['winner'] = $winner;
+  $request['loser'] = $loser;
+  $request['wscore'] = $winscore;
+  $request['lscore'] = $losescore;
+  $request['weather'] = $weather;
   return true; //Return true on success
 }
 
