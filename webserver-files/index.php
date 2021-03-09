@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>Weather Pong - Login</title>
+	    <link rel="stylesheet" href="WebpageStyle.css">
 	</head>
 	<body>
 	<h1> Weather Pong - Login </h1>
