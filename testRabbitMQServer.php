@@ -25,7 +25,9 @@ function requestProcessor($request)
     case "create_account":
       return createAccount($request['username'], $request['password']);
     case "weather":
-      return $weather_output = getWeather( $request['location']);
+       return $weather_output = getWeather( $request['location']);
+    case "weather-history":
+       return $weather_output = getWeatherHistory( $request['location'], $request['date']);
     case "results":
       return $results = insertResults($request);
     case "friendslist":

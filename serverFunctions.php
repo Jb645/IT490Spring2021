@@ -34,6 +34,27 @@ function getWeather($location)
   return $weather;
 }
 
+function getWeatherHistory($location, $date)
+{
+  if(!isset($location))
+  {
+     logData("ERROR: location is null");
+     return NULL;
+  }
+  if(!isset($date))
+  {
+     logData("ERROR: date is null");
+  }
+  $output = shell_exec("python3 RAbbitMQ-TnE/History.py ". $location ." ". $date);
+  if(!isset ($output))
+  {
+    logData("No data recieved from weather API");
+  }
+  logData($output[0]);
+  
+  return $output;
+}
+
 function insertResults($request)
 {
   //SQL insert results into DB
