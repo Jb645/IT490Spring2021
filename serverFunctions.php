@@ -50,9 +50,10 @@ function getWeatherHistory($location, $date)
   {
     logData("No data recieved from weather API");
   }
-  logData($output[0]);
+  $output = preg_split('/\r\n|\n/', $output);
   
-  return $output;
+  $weather = array(substr($output[3],18), substr($output[4],13));
+  return $weather;
 }
 
 function insertResults($request)
