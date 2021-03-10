@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<title>Weather Pong - Login</title>
-	    <link rel="stylesheet" href="WebpageStyle.css">
 	</head>
 	<body>
 	<h1> Weather Pong - Login </h1>
@@ -24,7 +23,7 @@ session_start();
 if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	$password = password_hash($pass, PASSWORD_BCRYPT);
+	$password = password_hash($password, PASSWORD_BCRYPT);
 	
 	require("testRabbitMQClient.php");
 	try {
