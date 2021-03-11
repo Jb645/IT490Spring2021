@@ -229,7 +229,7 @@ function addFriend($username, $target)
   $newFriendId2 = $newFriendId . " ";
   $friendCheckSQL = "SELECT friendList FROM users WHERE username=$username";
   if($mydb->query($friendCheckSQL) != NULL){
-      $newList = $mydb->query($friendCheckSQL) . $newFriendId2
+      $newList = $mydb->query($friendCheckSQL) . $newFriendId2;
       $SQLfinisher1 = "UPDATE users SET friendList=$newList WHERE username=$username";
       $mydb->query($SQLfinisher1);
   }
