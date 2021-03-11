@@ -206,7 +206,7 @@ function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
 function getFriends($username)
 {
   //SQL retrieve list of friends from DB
-  $mydb->connect();
+  $mydb->dbConnect();
   $sql="SELECT friendList FROM users WHERE username=$username";
   $friendsRaw = $mydb->query($sql);
   $friendsArray = explode(" ", $friendsRaw);
@@ -224,7 +224,7 @@ function addFriend($username, $target)
 {
   //SQL insert target into username's friend list
   
-  $mydb->connect();
+  $mydb->dbConnect();
   $targetSQL = "SELECT id FROM users WHERE username=$target";
   $newFriendId = $mydb->query($targetSQL);
   $newFriendId2 = $newFriendId . " ";
@@ -237,6 +237,7 @@ function addFriend($username, $target)
 function rmFriend($username, $target)
 {
   //SQL remove target from username's friend's list
+  $mydb->dbConnect();
   $targetSQL = "SELECT id FROM users WHERE username=$target";
   $badFriendId = $mydb->query($targetSQL);
   $friendListPullQ = "SELECT friendlist FROM users WHERE username=$username";
