@@ -204,11 +204,13 @@ function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
            }
            $mydb->close();
            break;
-
+  }
+}
   //Insert account info into Database
 function getFriends($username)
 {
   //SQL retrieve list of friends from DB
+  $mydb->connect();
   return true; //Return true on success
 }
 
@@ -224,4 +226,3 @@ function rmFriend($username, $target)
   return true; //Return true on success
 }
 ?>
-
