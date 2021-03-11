@@ -227,8 +227,16 @@ function addFriend($username, $target)
   $targetSQL = "SELECT id FROM users WHERE username=$target";
   $newFriendId = $mydb->query($targetSQL);
   $newFriendId2 = $newFriendId . " ";
-  $listUpdateSQL = "INSERT INTO users(friendList) VALUES ($newFriendId2) WHERE username=$username";
-  $mydb->query($listUpdateSQL);
+  $friendCheckSQL = "SELECT friendList FROM users WHERE username=$username";
+  if($mydb->query($friendCheckSQL) != NULL){
+      $newList = $mydb->query($friendCheckSQL) . $newFriendId2
+      $SQLfinisher1 = "UPDATE users SET friendList=$newList WHERE username=$username";
+      $mydb->query($SQLfinisher1);
+  }
+  else{
+      $SQLFinisher2 = "UPDATE users SET friendList=$newFriendId2 WHERE username=$username";
+      $mydb->query($SQLFinisher2);
+  }
   $mydb->close();
   return true; //Return true on success
 }
