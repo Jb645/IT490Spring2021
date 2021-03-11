@@ -22,11 +22,7 @@ function doLogin($username,$password)
     // check password
     $mydb = dbConnect();
     $sql = "SELECT userName FROM Users WHERE username = '$username' and password = '$password'";
-    $result = mysqli_query($mydb, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $active = $row['active'];
-    $count = mysqli_num_rows($result);
-    if($count == 1){
+    if($mydb->query($sql) == TRUE){
         return true;
     }
 
