@@ -225,7 +225,7 @@ function addFriend($username, $target)
   //SQL insert target into username's friend list
   
   $mydb->connect();
-  $targetSQL = "SELECT id FROM users WHERE username=$target"
+  $targetSQL = "SELECT id FROM users WHERE username=$target";
   $newFriendId = $mydb->query($targetSQL);
   $newFriendId2 = $newFriendId . " ";
   $listUpdateSQL = "INSERT INTO users(friendlist) VALUES ($newFriendID2) WHERE username=$username";
