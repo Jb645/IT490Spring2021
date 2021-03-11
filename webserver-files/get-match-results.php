@@ -4,13 +4,15 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
 	require("testRabbitMQClient.php");
 	
-	$winner = $_GET['winner'];
-	$loser = $_GET['loser'];
-	$winscore = $_GET['wscore'];
-	$losescore = $_GET['lscore'];
-	$weather = $_GET['weather'];
+	$winner = $_POST['winner'];
+	$loser = $_POST['loser'];
+	$winscore = $_POST['wscore'];
+	$losescore = $_POST['lscore'];
+	$wweather = $_POST['wweather'];
+	$lweather = $_POST['lweather'];
+
 	
-	$response = amqpGameResults($winner, $loser, $winscore, $losescore, $weather);
+	$response = amqpGameResults($winner, $loser, $winscore, $losescore, $wweather, $lweather);
 
 	if(isset($response))
 	{

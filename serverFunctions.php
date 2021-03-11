@@ -59,11 +59,13 @@ function getWeatherHistory($location, $date)
 function insertResults($request)
 {
   //SQL insert results into DB
-  $request['winner'] = $winner;
-  $request['loser'] = $loser;
-  $request['wscore'] = $winscore;
-  $request['lscore'] = $losescore;
-  $request['weather'] = $weather;
+  $winner = $request['winner'];
+  $loser = $request['loser'];
+  $winscore = $request['wscore'];
+  $loserscore = $request['lscore'];
+  $wweather = $request['wweather'];//Weather cond for winnner
+  $lweather = $request['lweather'];//Weather cond for loser
+
   return true; //Return true on success
 }
 
