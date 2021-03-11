@@ -227,7 +227,7 @@ function addFriend($username, $target)
   $targetSQL = "SELECT id FROM users WHERE username=$target";
   $newFriendId = $mydb->query($targetSQL);
   $newFriendId2 = $newFriendId . " ";
-  $listUpdateSQL = "INSERT INTO users(friendlist) VALUES ($newFriendId2) WHERE username=$username";
+  $listUpdateSQL = "INSERT INTO users(friendList) VALUES ($newFriendId2) WHERE username=$username";
   $mydb->query($listUpdateSQL);
   $mydb->close();
   return true; //Return true on success
@@ -239,7 +239,7 @@ function rmFriend($username, $target)
   $mydb = dbConnect();     
   $targetSQL = "SELECT id FROM users WHERE username=$target";
   $badFriendId = $mydb->query($targetSQL);
-  $friendListPullQ = "SELECT friendlist FROM users WHERE username=$username";
+  $friendListPullQ = "SELECT friendList FROM users WHERE username=$username";
   $friendListRaw = $mydb->query($friendListPullQ);
   $friendListArray = explode(" ", $friendListRaw);
   
