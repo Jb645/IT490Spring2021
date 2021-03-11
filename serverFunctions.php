@@ -207,7 +207,7 @@ function getFriends($username)
 {
   //SQL retrieve list of friends from DB
   $mydb->connect();
-  $sql="SELECT friendList FROM users WHERE username=$username"
+  $sql="SELECT friendList FROM users WHERE username=$username";
   $friendsRaw = $mydb->query($sql);
   $friendsArray = explode(" ", $friendsRaw);
   foreach($friendsArray as &$friends){
