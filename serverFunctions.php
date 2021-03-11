@@ -21,12 +21,15 @@ function doLogin($username,$password)
     // lookup username in databas
     // check password
     $mydb = dbConnect();
-    $sql = "SELECT userName FROM Users WHERE username = '$username' and password = '$password'";
-    if($mydb->query($sql) == TRUE){
+    $sql = "SELECT username FROM users WHERE username = '$username' and password = '$password'";
+    $output = $mydb->query($sql);
+    $mydb->close();
+    logRequest($output);
+    if($output == TRUE){
         return true;
     }
-
-    $mydb->close();
+    else
+	    return false;
     //return false if not valid
 }
 
@@ -86,7 +89,7 @@ function getWeatherHistory($location, $date)
 }
 
 function scoreTableChecker($id){
-      $mydb = dbconnect();
+      $mydb = dbConnect();
       $sql = "SELECT * FROM scores WHERE id=$id";
       if($mydb->query($sql) != TRUE){
          $newRowSql = "INSERT INTO scores (id) VALUES ($id)";
@@ -224,17 +227,29 @@ function addFriend($username, $target)
 {
   //SQL insert target into username's friend list
   $mydb = dbConnect();
-  $targetSQL = "SELECT id FROM users WHERE username=$target";
+  $targetSQL = "SELECT id FROM users WHERE username='$target'";
+  logData($targetSQL);
+  //$newFriendId = $mydb->query($targetSQL);
   $newFriendId = $mydb->query($targetSQL);
-  $newFriendId2 = $newFriendId . " ";
-  $friendCheckSQL = "SELECT friendList FROM users WHERE username=$username";
-  if($mydb->query($friendCheckSQL) != NULL){
-      $newList = $mydb->query($friendCheckSQL) . $newFriendId2;
-      $SQLfinisher1 = "UPDATE users SET friendList=$newList WHERE username=$username";
+  while($row = mysqli_fetch_row($newFriendId))
+  {
+	  $newFriendId2 = $row[0];
+	  logData("\n user id: ".$row[0]);
+  }
+  $friendCheckSQL = "SELECT friendList FROM users WHERE username='$username'";
+  $friendCheckResult = $mydb->query($friendCheckSQL);
+  if($friendCheckResult != NULL){
+      //$newList = $mydb->query($friendCheckSQL) . "$newFriendId2";
+        while($row = mysqli_fetch_row($friendCheckResult))
+       {
+          $newList = $row[0] . " " . $newFriendId2 ;
+          logData("\n user id: ".$row[0]);
+       }	  
+      $SQLfinisher1 = "UPDATE users SET friendList='$newList' WHERE username='$username'";
       $mydb->query($SQLfinisher1);
   }
   else{
-      $SQLFinisher2 = "UPDATE users SET friendList=$newFriendId2 WHERE username=$username";
+      $SQLFinisher2 = "UPDATE users SET friendList='$newFriendId2' WHERE username=$username";
       $mydb->query($SQLFinisher2);
   }
   $mydb->close();
