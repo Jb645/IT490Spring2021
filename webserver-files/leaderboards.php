@@ -28,5 +28,9 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	$username = $_POST['username'];
 
 	echo "congrats";
-}	
+}
+   $mydb = dbConnect();
+   $sql = "SELECT username, wins, losses FROM users";
+   echo $mydb->query($sql);
+   $mydb->close();
 ?> 
