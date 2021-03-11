@@ -199,7 +199,7 @@ function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
 
            }
            else{
-                $sqlEmptyLossCondition ="INSERT INTO scores (lastLosingCondition) VALUES ($Score) WHERE id=$id";
+                $sqlEmptyLossCondition ="INSERT INTO scores (lastLosingCondition) VALUES ($Condition) WHERE id=$id";
                 $mydb->query($sqlEmptyLossCondition);
            }
            $mydb->close();
