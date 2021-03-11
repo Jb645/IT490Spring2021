@@ -210,17 +210,30 @@ function getFriends($username)
 {
   //SQL retrieve list of friends from DB
   $mydb = dbConnect();	
-  $sql="SELECT friendList FROM users WHERE username=$username";
+  $friendsList = array();
+  $sql="SELECT friendList FROM users WHERE username='$username'";
   $friendsRaw = $mydb->query($sql);
-  $friendsArray = explode(" ", $friendsRaw);
-  foreach($friendsArray as &$friends){
-    $sqlFriendFinder = "SELECT username FROM users WHERE id=$friends";
-    $friendOut = $mydb->query($sqlFriendFinder);
-    echo $friendOut;  
-  }
-  unset($friends);
-  $mydb->close();
-  return true; //Return true on success
+  while($row = mysqli_fetch_row($friendsRaw))
+      {
+	 logData($row[0]);
+          $friendsArray = explode(" ", $row[0]);
+	 logRequest($friendsArray);
+	 //logData("friends array:" . $friendsArray[0] . $friendsArray[1]);
+       }
+   foreach ($friendsArray as &$id)
+   {
+	   $sql = "SELECT username FROM users WHERE id ='$id'";
+	   $friendsRaw = $mydb->query($sql);
+	   while($row = mysqli_fetch_row($friendsRaw))
+	   {
+	      array_push($friendsList, $row[0]);
+	      logData($row[0]."\n");
+	   }
+   }
+  
+   $mydb->close();
+  logRequest($friendsList);
+  return $friendsList; 
 }
 
 function addFriend($username, $target)
@@ -239,7 +252,6 @@ function addFriend($username, $target)
   $friendCheckSQL = "SELECT friendList FROM users WHERE username='$username'";
   $friendCheckResult = $mydb->query($friendCheckSQL);
   if($friendCheckResult != NULL){
-      //$newList = $mydb->query($friendCheckSQL) . "$newFriendId2";
         while($row = mysqli_fetch_row($friendCheckResult))
        {
           $newList = $row[0] . " " . $newFriendId2 ;

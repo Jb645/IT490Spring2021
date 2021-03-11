@@ -31,7 +31,7 @@ function requestProcessor($request)
     case "results":
       return $results = insertResults($request);
     case "friendslist":
-      return getFriends($request['username']);
+      return $friends = getFriends($request['username']);
     case "addfriend":
       return addFriend($request['username'], $request['target']);
     case "rmfriend":
@@ -40,6 +40,8 @@ function requestProcessor($request)
 
   if(isset($weather_output))
 	  return $weather_output;
+  if(isset($friends))
+	  return $friends;
   
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }

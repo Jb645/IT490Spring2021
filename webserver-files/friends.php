@@ -22,7 +22,13 @@ $username = $_SESSION['login'];
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
 	echo "Session is good.\n";
-	amqpFriendslist($username);
+	$friends = amqpFriendslist($username);
+	$count = 0;
+	while($count < count($friends))
+	{
+		echo $friends[$count];
+		$count ++;
+	}
 }
 else
 {
