@@ -207,18 +207,50 @@ function getFriends($username)
 {
   //SQL retrieve list of friends from DB
   $mydb->connect();
+  $sql="SELECT friendList FROM users WHERE username=$username"
+  $friendsRaw = $mydb->query($sql);
+  $friendsArray = explode(" ", $friendsRaw);
+  foreach($friendsArray as &$friends){
+    $sqlFriendFinder = "SELECT username FROM users WHERE id=$friends";
+    $friendOut = $mydb->query($sqlFriendFinder);
+    echo $friendOut;  
+  }
+  unset($friends);
+  $mydb->close();
   return true; //Return true on success
 }
 
 function addFriend($username, $target)
 {
-  //SQL insert target into username's friends list
+  //SQL insert target into username's friend list
+  
+  $mydb->connect();
+  $targetSQL = "SELECT id FROM users WHERE username=$target"
+  $newFriendId = $mydb->query($targetSQL);
+  $newFriendId2 = $newFriendId . " ";
+  $listUpdateSQL = "INSERT INTO users(friendlist) VALUES ($newFriendID2) WHERE username=$username";
+  $mydb->query($listUpdateSQL);
+  $mydb->close();
   return true; //Return true on success
 }
 
 function rmFriend($username, $target)
 {
   //SQL remove target from username's friend's list
+  $targetSQL = "SELECT id FROM users WHERE username=$target"
+  $badFriendId = $mydb->query($targetSQL);
+  $friendListPullQ = "SELECT friendlist FROM users WHERE username=$username";
+  $friendListRaw = $mydb->query($friendListPullQ);
+  $friendListArray = explode(" ", $friendListRaw);
+  
+  if(($key = array_search($badFriendId, $friendListArray)) != FALSE){
+      unset($friendListArray[$key]);
+  }
+
+  $friendListReturn = implode(" ", $friendListArray);
+  $sqlUpdate = "UPDATE users SET friendList=$friendListReturn WHERE username=$username";
+  $mydb->query($sqlUpdate);
+  $mydb->close();
   return true; //Return true on success
 }
 ?>
