@@ -237,7 +237,7 @@ function addFriend($username, $target)
 function rmFriend($username, $target)
 {
   //SQL remove target from username's friend's list
-  $targetSQL = "SELECT id FROM users WHERE username=$target"
+  $targetSQL = "SELECT id FROM users WHERE username=$target";
   $badFriendId = $mydb->query($targetSQL);
   $friendListPullQ = "SELECT friendlist FROM users WHERE username=$username";
   $friendListRaw = $mydb->query($friendListPullQ);
