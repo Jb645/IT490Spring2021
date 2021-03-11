@@ -6,14 +6,27 @@ function doLogin($username,$password)
 {
     // lookup username in databas
     // check password
-    return true;
+    $sql = "SELECT userName FROM Users WHERE username = '$username' and password = '$password'");
+    $result = mysqli_query($db, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $active = $row['active'];
+    $count = mysqli_num_rows($result);
+    if($count == 1){
+        return true;
+    }
+
     //return false if not valid
 }
 
 function createAccount($username, $password)
 {
   //Insert account info into DB
-  return true; //Return true on success
+  $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+  if ($mydb->query($sql) == TRUE){
+    echo "ACCOUNT CREATED" . EOL;
+    return true; //Return true on success
+    
+  }
 }
 
 function getWeather($location)
