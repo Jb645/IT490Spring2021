@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-$mydb = new mysqli('25.13.229.207','test','test','weatherPong');
+$mydb = new mysqli('25.13.229.207','tim2','potato','weatherPong');
 
 if ($mydb->errno != 0)
 {

@@ -2,6 +2,20 @@
 <?php
 require_once('logger.php');
 
+function dbConnect()
+{
+  $mydb = new mysqli('25.13.229.207','tim2','potato','weatherPong');
+
+  if ($mydb->errno != 0)
+  {
+        echo "failed to connect to database: ". $mydb->error . PHP_EOL;
+        exit(0);
+  }
+
+  echo "successfully connected to database".PHP_EOL;
+  return $mydb;
+}
+
 function doLogin($username,$password)
 {
     // lookup username in databas
@@ -20,13 +34,17 @@ function doLogin($username,$password)
 
 function createAccount($username, $password)
 {
+  $mydb = dbConnect();
   //Insert account info into DB
   $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
   if ($mydb->query($sql) == TRUE){
-    echo "ACCOUNT CREATED" . EOL;
-    return true; //Return true on success
-    
+    echo "ACCOUNT CREATED";
+    $mydb->close();
+    return true; //Return true on success 
   }
+  logData("Failed to insert");
+  $mydb->close();
+  return false;
 }
 
 function getWeather($location)
