@@ -260,7 +260,7 @@ function getSuggestion($username)
   while($row = mysqli_fetch_row($myQuery)){
   	array_push($userArray, $row[0]);
   }
-  $random = rand(0, (count($userArray)));
+  $random = rand(0, (count($userArray)-1));
   logData($random);
   $mydb->close();
   return $userArray[$random];
