@@ -322,7 +322,8 @@ function getLeaderboard()
   $sql = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
   $getTopTen = $mydb->query($sql);
   while($row = mysqli_fetch_row($getTopTen)){
-  	logData($row);
+	 echo $row[0].$row[1]; 
+	 logData($row);
   }
   $mydb->close();
   return true;
