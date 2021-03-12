@@ -47,7 +47,7 @@ function createAccount($username, $password)
           $newID = $row[0];
           logData("\n user id: ".$row[0]);
   }
-    $sql3 = "INSERT INTO scores (ID, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$id', 0, 0, 'clear sky', 'clear sky')";
+    $sql3 = "INSERT INTO scores (id, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$newID', 0, 0, 'clear sky', 'clear sky')";
    if($mydb->query($sql3) == TRUE){
     $mydb->close();
     return true; //Return true on success 
@@ -319,13 +319,19 @@ function rmFriend($username, $target)
 function getLeaderboard()
 {
   $mydb = dbConnect();
-  $sql = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
+  if(!isset($mydb))
+  {logData("Failed to connect"); return;}
+  $sql = "SELECT username, wins, losses FROM users Order by wins DESC";
   $getTopTen = $mydb->query($sql);
-  while($row = mysqli_fetch_row($getTopTen)){
-	 echo $row[0].$row[1]; 
-	 logData($row);
+  $count = 0;
+  $boardArray = array();
+  while($row = mysqli_fetch_row($getTopTen)){ 
+    array_push($boardArray, ($row[0] . " | " . $row[1] . " | " . $row[2]) );
+    if($count == 9)
+	    break;
+    $count ++;
   }
   $mydb->close();
-  return true;
+  return $boardArray;
 }
 ?>

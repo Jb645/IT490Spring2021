@@ -37,13 +37,15 @@ function requestProcessor($request)
     case "rmfriend":
       return rmFriend($request['username'], $request['target']); 
     case "get-leaderboard":
-      return getLeaderboard();
+      return $board = getLeaderboard();
   }
 
   if(isset($weather_output))
 	  return $weather_output;
   if(isset($friends))
 	  return $friends;
+  if(isset($board))
+	  return $board;
   
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
