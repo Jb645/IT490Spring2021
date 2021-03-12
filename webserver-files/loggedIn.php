@@ -4,14 +4,21 @@ session_start();
 <html>
 	<head>
 		<title>Successful Login</title>
+		<link rel="stylesheet" href="WebpageStyle.css">
 	</head>
 	<body>
-	<br>Welcome: <?php echo $_SESSION['login']; ?> <br>
-	<a href = "leaderboards.php"> Leaderboards </a> <br>
-	<a href = "matchmaking.php"> Suggest opponent </a> <br>
-	<a href = "friends.php"> View friends </a> <br>
-	<a href = "chat.php"> Chat </a> <br>
-	<a href = "exit.php"> Exit </a> <br>
+	
+	<nav class="nav">
+		<ul>
+			<li><a href = "leaderboards.php"> Leaderboards </a></li>
+			<li><a href = "matchmaking.php"> Suggest opponent </a></li>
+			<li><a href = "friends.php"> View friends </a></li>
+			<li><a href = "chat.php"> Chat </a></li>
+			<li><a href = "exit.php"> Exit </a></li>
+		</ul>
+		<br>Welcome: <?php echo $_SESSION['login']; ?> <br>
+	</nav>
+	
 	</body>
 </html>
 <?php 
