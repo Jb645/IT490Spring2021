@@ -296,10 +296,10 @@ function rmFriend($username, $target)
 function getLeaderboard()
 {
   $mydb = dbConnect();
-  $addingTop10 = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
-  $top10Querry = $mydb->query($addingTop10);
-  while($row = mysql_fetch_assoc($result)){
-  	print_r($row);
+  $sql = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
+  $getTopTen = $mydb->query($sql);
+  while($row = mysqli_fetch_row($getTopTen)){
+  	logData($row);
   }
   $mydb->close();
   return true;

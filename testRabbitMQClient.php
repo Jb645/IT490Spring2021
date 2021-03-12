@@ -15,9 +15,7 @@ else
 }
 
 $request = array();
-$request['type'] = "weather";
-$request['username'] = "steve";
-$request['password'] = "password";
+$request['type'] = "get-leaderboard";
 $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
