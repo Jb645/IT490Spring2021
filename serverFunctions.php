@@ -37,11 +37,21 @@ function createAccount($username, $password)
 {
   $mydb = dbConnect();
   //Insert account info into DB
-  $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+  $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password', 0, 0)";
   if ($mydb->query($sql) == TRUE){
     echo "ACCOUNT CREATED";
+    $sql2 = "SELECT id FROM users WHERE username = '$username'"
+    $newScores = $mydb->query($sql2);
+   while($row = mysqli_fetch_row($newScores))
+  {
+          $newID = $row[0];
+          logData("\n user id: ".$row[0]);
+  }
+    $sql3 = "INSERT INTO scores (ID, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$id', 0, 0, 'clear sky', 'clear sky')";
+   if($mydb->query($sql3) == TRUE){
     $mydb->close();
     return true; //Return true on success 
+   }
   }
   logData("Failed to insert");
   $mydb->close();
@@ -274,16 +284,25 @@ function rmFriend($username, $target)
   $mydb = dbConnect();     
   $targetSQL = "SELECT friendList FROM users WHERE username='$username'";
   $upsetUserId = $mydb->query($targetSQL);
-  /*while($row = mysqli_fetch_row($targetSQL))
+  while($row = mysqli_fetch_row($targetSQL))
   {
-       $row;
-  }*/
-  $friendListPullQ = "SELECT friendList FROM users WHERE username='$username'";
-  $friendListRaw = $mydb->query($friendListPullQ);
-  $friendListArray = explode(" ", $friendListRaw);
-  
-  if(($key = array_search($badFriendId, $friendListArray)) != FALSE){
-      unset($friendListArray[$key]);
+        $upsetList = $row[0];
+        logData("\n friend list raw ids: " .$upsetList);
+  }
+  $friendListArray = explode(" ", $upsetList);
+  foreach ($friendListArray as $friendsCheck => $val)
+  {
+     $badFriendBool = False;
+      if($val == $target){
+	   unset($friendListArray[$val]);
+           $badFriendBool = True;
+           break;
+      }
+     if($badFriendBool == False){
+        echo "<p>No Friend Exists</p>"
+	return;
+     }
+	      
   }
 
   $friendListReturn = implode(" ", $friendListArray);
