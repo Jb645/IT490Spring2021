@@ -248,4 +248,21 @@ function getLeaderboard()
   $mydb->close();
   return $boardArray;
 }
+
+function getSuggestion($username)
+{
+  $mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect"); return;}
+  $sql = "SELECT username FROM users WHERE NOT username = '$username'";
+  $myQuery = $mydb->query($sql);
+  $userArray = array();
+  while($row = mysqli_fetch_row($myQuery)){
+  	array_push($userArray, $row[0]);
+  }
+  $random = rand(0, (count($userArray)));
+  logData($random);
+  $mydb->close();
+  return $userArray[$random];
+}
 ?>
