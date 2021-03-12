@@ -21,12 +21,13 @@ $username = $_SESSION['login'];
 
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
-	echo "Session is good.\n";
+	echo nl2br("Session is good\n");
 	$friends = amqpFriendslist($username);
+	echo nl2br("\n\nCurrent Friends: \n");
 	$count = 0;
 	while($count < count($friends))
 	{
-		echo $friends[$count];
+		echo nl2br("\n" . ($count + 1) . ": $friends[$count]");
 		$count ++;
 	}
 }
@@ -37,7 +38,7 @@ else
 ?> 
 <html>
 <body>
-<br>
+<br> <br>
 <a href = "modify-friends.php"> Add/remove friends</a> <br>
 <br><br>
 <a href = "loggedIn.php"> Back</a> <br>

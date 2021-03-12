@@ -5,8 +5,9 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 	require("testRabbitMQClient.php");
 	
 	$location = $_GET['location'];
+	$date = $_GET['date'];
 	
-	$response = amqpWeather($location);
+	$response = amqpWeatherHistory($location, $date);
 
 	if(isset($response))
 	{
