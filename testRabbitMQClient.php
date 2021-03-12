@@ -15,7 +15,13 @@ else
 }
 
 $request = array();
-$request['type'] = "get-leaderboard";
+  $request['type'] = "results";
+  $request['winner'] = "timc";
+  $request['loser'] = "test10";
+  $request['wscore'] = "7";
+  $request['lscore'] = "";
+ // $request['wweather'] = $wweather;
+ // $request['lweather'] = $lweather;
 $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
