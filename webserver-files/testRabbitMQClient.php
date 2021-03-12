@@ -1,7 +1,9 @@
+#!/usr/bin/php:
 <?php
 require_once('rabbitMQLib.inc');
 function amqpLoginRequest($username, $password)
 {
+echo "amqLogin in";
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
   if (isset($argv[1]))
   {
@@ -25,6 +27,7 @@ function amqpLoginRequest($username, $password)
 
 function amqpCreateAccount($username, $password)
 {
+echo "amqcreate"
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
   if (isset($argv[1]))
   {
@@ -205,4 +208,4 @@ function amqpRmFriend($username, $target)
 /*$USER = $_GET['username']; 
 $PASS = $_GET['password'];
 amqpLoginRequest($USER, $PASS);
-*/
+ */
