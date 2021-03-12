@@ -36,6 +36,8 @@ function requestProcessor($request)
       return addFriend($request['username'], $request['target']);
     case "rmfriend":
       return rmFriend($request['username'], $request['target']); 
+    case "get-leaderboard":
+      return getLeaderboard();
   }
 
   if(isset($weather_output))

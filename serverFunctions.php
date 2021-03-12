@@ -184,7 +184,7 @@ function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
                 $mydb->query($sqlEmptyWinCondition);
            }
            $mydb->close();
-	   break;
+	   //break;
 
         // case 'lweather':
            $lweather = $request['lweather'];  //insert winner into users
@@ -202,8 +202,8 @@ function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
                 $mydb->query($sqlEmptyLossCondition);
            }
            $mydb->close();
-           break;
-  }
+          // break;
+  
 }
   //Insert account info into Database
 function getFriends($username)
@@ -274,10 +274,10 @@ function rmFriend($username, $target)
   $mydb = dbConnect();     
   $targetSQL = "SELECT friendList FROM users WHERE username='$username'";
   $upsetUserId = $mydb->query($targetSQL);
-  while($row = mysqli_fetch_row($targetSQL))
+  /*while($row = mysqli_fetch_row($targetSQL))
   {
-       $
-  }
+       $row;
+  }*/
   $friendListPullQ = "SELECT friendList FROM users WHERE username='$username'";
   $friendListRaw = $mydb->query($friendListPullQ);
   $friendListArray = explode(" ", $friendListRaw);
@@ -291,5 +291,10 @@ function rmFriend($username, $target)
   $mydb->query($sqlUpdate);
   $mydb->close();
   return true; //Return true on success
+}
+
+function getLeaderboard()
+{
+  return true;
 }
 ?>
