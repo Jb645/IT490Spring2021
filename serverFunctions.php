@@ -40,7 +40,7 @@ function createAccount($username, $password)
   $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password', 0, 0)";
   if ($mydb->query($sql) == TRUE){
     echo "ACCOUNT CREATED";
-    $sql2 = "SELECT id FROM users WHERE username = '$username'"
+    $sql2 = "SELECT id FROM users WHERE username = '$username'";
     $newScores = $mydb->query($sql2);
    while($row = mysqli_fetch_row($newScores))
   {
@@ -281,35 +281,39 @@ function addFriend($username, $target)
 function rmFriend($username, $target)
 {
   //SQL remove target from username's friend's list
-  $mydb = dbConnect();     
+  $mydb = dbConnect();   
+  $sql = "SELECT id FROM users WHERE username='$target'";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+        $targetId = $row[0];
+        logData("\n id to be removed: $targetId");
+  }
   $targetSQL = "SELECT friendList FROM users WHERE username='$username'";
   $upsetUserId = $mydb->query($targetSQL);
-  while($row = mysqli_fetch_row($targetSQL))
+  while($row = mysqli_fetch_row($upsetUserId))
   {
         $upsetList = $row[0];
         logData("\n friend list raw ids: " .$upsetList);
   }
   $friendListArray = explode(" ", $upsetList);
-  foreach ($friendListArray as $friendsCheck => $val)
+  $count = 0;
+  while($count < count($friendListArray))
   {
-     $badFriendBool = False;
-      if($val == $target){
-	   unset($friendListArray[$val]);
-           $badFriendBool = True;
-           break;
-      }
-     if($badFriendBool == False){
-        echo "<p>No Friend Exists</p>"
-	return;
+     if($friendListArray[$count] == $targetId)
+     {    
+	$friendListArray[$count] = "";
+	$friendListReturn = implode(" ", $friendListArray);    
+	$sqlUpdate = "UPDATE users SET friendList='$friendListReturn' WHERE username='$username'";
+        $mydb->query($sqlUpdate);
+	$mydb->close();
+	return true;
      }
-	      
+     $count ++;
   }
-
-  $friendListReturn = implode(" ", $friendListArray);
-  $sqlUpdate = "UPDATE users SET friendList='$friendListReturn' WHERE username='$username'";
-  $mydb->query($sqlUpdate);
+  echo "No friend exists";
   $mydb->close();
-  return true; //Return true on success
+  return false;
 }
 
 function getLeaderboard()
