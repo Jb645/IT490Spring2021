@@ -295,6 +295,13 @@ function rmFriend($username, $target)
 
 function getLeaderboard()
 {
+  $mydb = dbConnect();
+  $addingTop10 = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
+  $top10Querry = $mydb->query($addingTop10);
+  while($row = mysql_fetch_assoc($result)){
+  	print_r($row);
+  }
+  $mydb->close();
   return true;
 }
 ?>
