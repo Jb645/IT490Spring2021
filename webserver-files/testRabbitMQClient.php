@@ -1,7 +1,9 @@
+#!/usr/bin/php:
 <?php
 require_once('rabbitMQLib.inc');
 function amqpLoginRequest($username, $password)
 {
+echo "amqLogin in";
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
   if (isset($argv[1]))
   {
@@ -25,6 +27,7 @@ function amqpLoginRequest($username, $password)
 
 function amqpCreateAccount($username, $password)
 {
+echo "amqcreate"
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
   if (isset($argv[1]))
   {
@@ -88,7 +91,30 @@ function amqpWeather($location)
   return $response;
 }
 
-function amqpGameResults($winner, $loser, $winscore, $losescore, $weather)
+function amqpWeatherHistory($location, $date)
+{
+  //Date format is year-mm-dd
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Requesting weather history info for: " . $location;
+  }
+  $request = array();
+  $request['type'] = "weather-history";
+  $request['location'] = $location;
+  $request['date'] = $date;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+  echo "client received response: ".PHP_EOL;
+  echo "\n\n";
+  return $response;
+}
+
+function amqpGameResults($winner, $loser, $winscore, $losescore, $wweather, $lweather)
 {
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
   if (isset($argv[1]))
@@ -105,7 +131,8 @@ function amqpGameResults($winner, $loser, $winscore, $losescore, $weather)
   $request['loser'] = $loser;
   $request['wscore'] = $winscore;
   $request['lscore'] = $losescore;
-  $request['weather'] = $weather;
+  $request['wweather'] = $wweather;
+  $request['lweather'] = $lweather;
   $request['message'] = $msg;
   $response = $client->send_request($request);
   echo "client received response: ".PHP_EOL;
@@ -181,4 +208,4 @@ function amqpRmFriend($username, $target)
 /*$USER = $_GET['username']; 
 $PASS = $_GET['password'];
 amqpLoginRequest($USER, $PASS);
-*/
+ */

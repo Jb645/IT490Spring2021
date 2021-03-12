@@ -25,19 +25,25 @@ function requestProcessor($request)
     case "create_account":
       return createAccount($request['username'], $request['password']);
     case "weather":
-      return $weather_output = getWeather( $request['location']);
+       return $weather_output = getWeather( $request['location']);
+    case "weather-history":
+       return $weather_output = getWeatherHistory( $request['location'], $request['date']);
     case "results":
       return $results = insertResults($request);
     case "friendslist":
-      return getFriends($request['username']);
+      return $friends = getFriends($request['username']);
     case "addfriend":
       return addFriend($request['username'], $request['target']);
     case "rmfriend":
       return rmFriend($request['username'], $request['target']); 
+    case "get-leaderboard":
+      return getLeaderboard();
   }
 
   if(isset($weather_output))
 	  return $weather_output;
+  if(isset($friends))
+	  return $friends;
   
   return array("returnCode" => '0', 'message'=>"Server received request and processed. Good job");
 }
