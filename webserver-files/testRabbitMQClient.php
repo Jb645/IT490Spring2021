@@ -25,7 +25,8 @@ function amqpLoginRequest($username, $password)
 
 function amqpCreateAccount($username, $password)
 {
-  $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  $password2 = "6@p" . $password;
   if (isset($argv[1]))
   {
     $msg = $argv[1];
@@ -37,7 +38,7 @@ function amqpCreateAccount($username, $password)
   $request = array();
   $request['type'] = "create_account";
   $request['username'] = $username;
-  $request['password'] = $password;
+  $request['password'] = $password2;
   $request['message'] = $msg;
   $response = $client->send_request($request);
   //$response = $client->publish($request);
