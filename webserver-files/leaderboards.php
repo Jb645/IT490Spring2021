@@ -15,22 +15,23 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+require("testRabbitMQClient.php");
+
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
-	echo "Session is good.\n";
+	echo nl2br("Session is good\n");
+	$users = amqpLeaderboard();
+	echo nl2br("\n\nTop 10: \n");
+	echo nl2br("\nName | Wins | Losses\n--------------------------------");
+	$count = 0;
+	while($count < 10)
+	{
+		echo nl2br("\n" . ($count + 1) . ": $users[$count]");
+		$count ++;
+	}
 }
 else
 {
 	header("Location: index.php");
-}
-if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-	$password = $_POST['password'];
-	$username = $_POST['username'];
-
-	echo "congrats";
-}
-   $mydb = dbConnect();
-   $sql = "SELECT username, wins, losses FROM users";
-   echo $mydb->query($sql);
-   $mydb->close();
+}	
 ?> 

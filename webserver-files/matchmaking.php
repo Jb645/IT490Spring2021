@@ -15,18 +15,16 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
 
+require("testRabbitMQClient.php");
+
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
-	echo "Session is good.\n";
+	echo nl2br("Session is good\n");
+	$opponent = amqpSuggestOp($_SESSION['login']);
+	echo ("Opponent should be: $opponent");
 }
 else
 {
 	header("Location: index.php");
 }
-if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-	$password = $_POST['password'];
-	$username = $_POST['username'];
-
-	echo "congrats";
-}	
 ?> 

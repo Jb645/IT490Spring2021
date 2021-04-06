@@ -37,7 +37,8 @@ function createAccount($username, $password)
 {
   $mydb = dbConnect();
   //Insert account info into DB
-  $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password', 0, 0)";
+  $password2 = "6@9a" . $password
+  $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password2', 0, 0)";
   if ($mydb->query($sql) == TRUE){
     echo "ACCOUNT CREATED";
     $sql2 = "SELECT id FROM users WHERE username = '$username'";
@@ -47,7 +48,7 @@ function createAccount($username, $password)
           $newID = $row[0];
           logData("\n user id: ".$row[0]);
   }
-    $sql3 = "INSERT INTO scores (ID, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$id', 0, 0, 'clear sky', 'clear sky')";
+    $sql3 = "INSERT INTO scores (id, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$newID', 0, 0, 'clear sky', 'clear sky')";
    if($mydb->query($sql3) == TRUE){
     $mydb->close();
     return true; //Return true on success 
@@ -108,112 +109,26 @@ function scoreTableChecker($id){
       $mydb->close();
 }
 
-function insertResults($request, $id=NULL, $Score=0, $Condition=NONE)
+//Insert results into DB
+function insertResults($request)
 {
-  //SQL insert results into DB
+  $winner = $request['winner'];
+  $loser = $request['loser'];
+  $wscore = $request['wscore'];
+  $lscore = $request['lscore'];
   
- // switch($request){
-  //      case "winner":
-           $winner = $request['winner'];  //insert winner into users
-           $mydb = dbConnect();
-           $sqlWinnerSearch = "SELECT wins FROM users WHERE id='$id'";
-           $winsSearch = mysql_query($mydb, $sqlWinnerSearch);
-	   if ($mydb->query($winsSearch) == TRUE){
-               $newWins = $winsSearch + 1;
-	       $sqlWins = "UPDATE users SET wins=$newWins WHERE id='$id'";
-	       $mydb->query($sqlWins);
-	   }
-           else{
-                $sqlEmptyWins ="UPDATE users SET wins=1 WHERE id='$id'";
-                $mydb->query($sqlEmptyWins);
-	   }
-           $mydb->close();
-    //       break;
-      //  case "loser":
-           $loser = $request["loser"];
-           $mydb = dbConnect();
-           $sqLoserSearch = "SELECT losses FROM users WHERE id='$id'";
-           $lossesSearch = mysql_query($mydb, $sqlLoserSearch);
-           if ($mydb->query($lossesSearch) == TRUE){
-               $newLosses = $lossesSearch + 1;
-               $sqlLosses = "UPDATE users SET losses='$newLosses' WHERE id='$id'";
-               $mydb->query($sqlLosses);
-           }
-           else{
-                $sqlEmptyLosses = "UPDATE users SET losses=1 WHERE id='$id'";
-                $mydb->query($sqlEmptyLosses);
-           }
-           $mydb->close();
-        //   break;
-       //  case 'wscore':
-           $winscore = $request['wscore'];  //insert winner into users
-	   $mydb = dbConnect();
-	   scoreTableChecker($id);
-           $sqlWinScoreSearch = "SELECT lastWinningScore FROM scores WHERE id='$id'";
-           $winsScoreSearch = mysql_query($mydb, $sqlWinScoreSearch);
-           if ($mydb->query($winsScoreSearch) == TRUE){
-               $sqlWinScore = "UPDATE scores SET lastWinningScore='$Score' WHERE id='$id'";
-               $mydb->query($sqlWinScore);
-           }
-           else{
-                $sqlEmptyWinScore ="INSERT INTO scores (lastWinningScore) VALUES ('$Score') WHERE id='$id'";
-                $mydb->query($sqlEmptyWinsScore);
-           }
-           $mydb->close();
-	 //  break;
-        // case 'lscore':
-           $loserscore = $request['lscore'];  //insert winner into users
-           $mydb = dbConnect();
-           scoreTableChecker($id);
-           $sqlLossScoreSearch = "SELECT lastLosingScore FROM scores WHERE id='$id'";
-           $lossScoreSearch = mysql_query($mydb, $sqlLossScoreSearch);
-           if ($mydb->query($lossScoreSearch) == TRUE){
-               $sqlLossScore = "UPDATE scores SET lastLosingScore='$Score' WHERE id='$id'";	  
-               $mydb->query($sqlLossScore);
+  $mydb = dbConnect();
+  $sql = "UPDATE users SET wins = wins + 1 WHERE username = '$winner'";
+  $myQuery = $mydb->query($sql);
+  if($myQuery != true)
+  {logData("Failed to update winner"); $mydb->close(); return false;}
 
-           }
-           else{
-                $sqlEmptyLossesScore ="INSERT INTO scores (lastLosingScore) VALUES ('$Score') WHERE id='$id'";
-                $mydb->query($sqlEmptyLossesScore);
-           }
-           $mydb->close();
-          // break;
+  $sql = "UPDATE users SET losses = losses + 1 WHERE username = '$loser'";
+  $myQuery = $mydb->query($sql);
+  if($myQuery != true)
+  {logData("Failed to update loser"); $mydb->close(); return false;}
 
-        // case 'wweather':
-           $wweather = $request['wweather'];  //insert winner into users
-           $mydb = dbConnect();
-           scoreTableChecker($id);
-           $sqlWinConditionSearch = "SELECT lastWinningCondition FROM scores WHERE id='$id'";
-           $winConditionSearch = mysql_query($mydb, $sqlWinConditionSearch);
-           if ($mydb->query($winConditionSearch) == TRUE){
-               $sqlWinCondition = "UPDATE scores SET lastWinningCondition='$Condition' WHERE id='$id'";
-               $mydb->query($sqlWinCondition);
-           }
-           else{
-                $sqlEmptyWinCondition ="INSERT INTO scores (lastWinningCondition) VALUES ($Condition) WHERE id=$id";
-                $mydb->query($sqlEmptyWinCondition);
-           }
-           $mydb->close();
-	   //break;
-
-        // case 'lweather':
-           $lweather = $request['lweather'];  //insert winner into users
-           $mydb = dbConnect();
-           scoreTableChecker($id);
-   $sqlLossConditionSearch = "SELECT lastLosingCondition FROM scores WHERE id='$id'";
-           $lossConditionSearch = mysql_query($mydb, $sqlLossConditionSearch);
-           if ($mydb->query($lossConditionSearch) == TRUE){
-               $sqlLossCondition = "UPDATE scores SET lastLosingCondition='$Condition' WHERE id=$id";
-               $mydb->query($sqlLossConditon);
-
-           }
-           else{
-                $sqlEmptyLossCondition ="INSERT INTO scores (lastLosingCondition) VALUES ($Condition) WHERE id=$id";
-                $mydb->query($sqlEmptyLossCondition);
-           }
-           $mydb->close();
-          // break;
-  
+  $mydb->close();  
 }
   //Insert account info into Database
 function getFriends($username)
@@ -319,13 +234,36 @@ function rmFriend($username, $target)
 function getLeaderboard()
 {
   $mydb = dbConnect();
-  $sql = "SELECT TOP 10 username, wins, losses FROM users Order by wins DESC";
+  if(!isset($mydb))
+  {logData("Failed to connect"); return;}
+  $sql = "SELECT username, wins, losses FROM users Order by wins DESC";
   $getTopTen = $mydb->query($sql);
-  while($row = mysqli_fetch_row($getTopTen)){
-	 echo $row[0].$row[1]; 
-	 logData($row);
+  $count = 0;
+  $boardArray = array();
+  while($row = mysqli_fetch_row($getTopTen)){ 
+    array_push($boardArray, ($row[0] . " | " . $row[1] . " | " . $row[2]) );
+    if($count == 9)
+	    break;
+    $count ++;
   }
   $mydb->close();
-  return true;
+  return $boardArray;
+}
+
+function getSuggestion($username)
+{
+  $mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect"); return;}
+  $sql = "SELECT username FROM users WHERE NOT username = '$username'";
+  $myQuery = $mydb->query($sql);
+  $userArray = array();
+  while($row = mysqli_fetch_row($myQuery)){
+  	array_push($userArray, $row[0]);
+  }
+  $random = rand(0, (count($userArray)-1));
+  logData($random);
+  $mydb->close();
+  return $userArray[$random];
 }
 ?>
