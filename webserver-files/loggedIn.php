@@ -16,7 +16,8 @@ session_start();
 			<li><a href = "chat.php"> Chat </a></li>
 			<li><a href = "exit.php"> Exit </a></li>
 		</ul>
-		<br>Welcome: <?php echo $_SESSION['login']; ?> <br>
+		<br>
+		<p class = "Welcome">Welcome: <?php echo $_SESSION['login']; ?></p> <br>
 	</nav>
 	
 	</body>
