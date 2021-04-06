@@ -42,3 +42,29 @@ body{
     box-shadow: 5px 5px slategray;
 }
 
+/*Header*/
+
+header{
+    background: white;
+    padding: 1rem;
+    margin-bottom: .5rem;
+}
+/*Footer*/
+footer{
+
+}
+footer a{
+    position: absolute;
+    background: black;
+    padding: .6rem .75em;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    bottom: 1rem;
+}
+
+header, footer a{
+
+    box-shadow: .35em .3em 0 darkslategrey;
+}
+

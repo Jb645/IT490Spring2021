@@ -4,10 +4,18 @@ session_start();
 <html>
 	<head>
 		<title>Leaderboards</title>
+		<link rel="stylesheet" href="WebpageStyle.css">
 	</head>
 	<body>
-	<br>Leaderboards:<br>
-	<a href = "loggedIn.php"> Back</a> <br>
+
+	<header>
+		<h2>Leaderboards:</h2>
+	</header>
+
+	<footer>
+		<a href = "loggedIn.php"> Back</a> <br>
+	</footer>
+
 	</body>
 </html>
 <?php 
