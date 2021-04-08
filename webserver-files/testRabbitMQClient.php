@@ -1,5 +1,6 @@
 <?php
 require_once('rabbitMQLib.inc');
+require_once('logger.php');
 function amqpLoginRequest($username, $password)
 {
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
@@ -25,7 +26,7 @@ function amqpLoginRequest($username, $password)
 
 function amqpCreateAccount($username, $password)
 {
-  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer"); 
   if (isset($argv[1]))
   {
     $msg = $argv[1];
@@ -223,8 +224,22 @@ function amqpSuggestOp($username)
   return $response;
 }
 
+function amqpLog($data)
+{
+  logData($data); //Put data on the webserver logs first
+ /* $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = $data;
+  }
+  $request = array();
+  $request['type'] = "logger";
+  $request['message'] = $msg;
+  $response = $client->send_request($request);*/
+}
 
-/*$USER = $_GET['username']; 
-$PASS = $_GET['password'];
-amqpLoginRequest($USER, $PASS);
-*/
+
