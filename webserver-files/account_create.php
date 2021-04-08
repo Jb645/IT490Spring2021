@@ -6,7 +6,7 @@
 	<h1> Create an account</h1>
 		<form name="create" id="myForm" method="POST">
 			<label for="username">Username: </label>
-			<input type="username" id="username" name="username" placeholder="Enter Username"/>
+			<input type="username" id="username" name="username" placeholder="Enter Username" autocomplete="off"/>
 			<label for="pass">Password: </label>
 			<input type="password" id="pass" name="password" placeholder="Enter password"/>
 			<input type="submit" value="Create"/>
@@ -22,7 +22,17 @@ session_start();
 
 if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
 	$username = $_POST['username'];
-	$password = $_POST['password'];	
+	if(preg_match("[\W]", $username) || preg_match('/\s+/', $username))
+	{
+		echo "Username cannot contain symbols or spaces";
+		exit();
+	}
+	$password = $_POST['password'];
+	if(preg_match('/\s+/', $password))
+	{
+		echo "Password cannot contain spaces";
+		exit();
+	}
 	$password = password_hash($password, PASSWORD_BCRYPT);
 	
 	require("testRabbitMQClient.php");
@@ -42,9 +52,5 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	{
 		echo "Name is taken";
 	}
-}
-else
-{
-	echo "Field left blank.";
 }
 ?> 

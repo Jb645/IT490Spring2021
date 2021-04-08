@@ -4,7 +4,7 @@
 	</head>
 	<body>
 	<h1> Weather Pong - Login </h1>
-		<form name="loginform" id="myForm" method="POST">
+		<form name="loginform" id="myForm" method="POST" autocomplete = "off">
 			<label for="username">Username: </label>
 			<input type="username" id="username" name="username" placeholder="Enter Username"/>
 			<label for="pass">Password: </label>
@@ -21,10 +21,9 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 session_start();
 
 if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = preg_replace('/[^A-Za-z0-9]/', "", $_POST['username']);
+	$password = preg_replace('/\s+/', '', $_POST['password']);
 	$password = password_hash($password, PASSWORD_BCRYPT);
-	
 	require("testRabbitMQClient.php");
 	try {
 		$response = amqpLoginRequest($username, $password);
@@ -42,5 +41,5 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 	{
 		echo "login failed";
 	}
-}	
+}
 ?> 
