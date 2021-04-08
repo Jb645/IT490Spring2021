@@ -24,9 +24,17 @@ function logRequest($request) //Takes request and writes it to file
   fclose($logs);//close
 }
 
-function logData($string) //appends data to logs
+function logData_simple($string) //appends data to logs
 {
   $logs = fopen("logs.txt", "a") or die("Unable to open file.");
+  fwrite($logs, $string);
+  fclose($logs);
+}
+
+function logData($string) //appends data to logs w/ date and time
+{
+  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
+  $string = "On: " . date("Y/m/d") . ", at: " . date("h:i:sa") . "\n" . $string . "\n\n";
   fwrite($logs, $string);
   fclose($logs);
 }
