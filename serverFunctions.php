@@ -37,7 +37,7 @@ function createAccount($username, $password)
 {
   $mydb = dbConnect();
   //Insert account info into DB
-  $password2 = "6@9a" . $password
+  $password2 = "6@9a" . $password;
   $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password2', 0, 0)";
   if ($mydb->query($sql) == TRUE){
     echo "ACCOUNT CREATED";

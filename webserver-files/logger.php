@@ -1,6 +1,4 @@
-#!/usr/bin/php
 <?php
-
 function customError($errno, $errstr) //basic error checking
 {
   logData("<b>ERROR:</b> [$errno] $errstr<br>");
@@ -24,14 +22,7 @@ function logRequest($request) //Takes request and writes it to file
   fclose($logs);//close
 }
 
-function logData_simple($string) //appends data to logs
-{
-  $logs = fopen("logs.txt", "a") or die("Unable to open file.");
-  fwrite($logs, $string);
-  fclose($logs);
-}
-
-function logData($string) //appends data to logs w/ date and time
+function logData($string) //appends data to logs
 {
   $logs = fopen("logs.txt", "a") or die("Unable to open file.");
   $string = "On: " . date("Y/m/d") . ", at: " . date("h:i:sa") . "\n" . $string . "\n\n";

@@ -9,8 +9,8 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 session_start();
 
 if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = preg_replace('/[^A-Za-z0-9]/', "", $_POST['username']);
+	$password = preg_replace('/\s+/', '', $_POST['password']);
 	$password = password_hash($password, PASSWORD_BCRYPT);
 	
 	require("testRabbitMQClient.php");

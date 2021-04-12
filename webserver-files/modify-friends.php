@@ -44,8 +44,7 @@ else
 }
 
 if(isset($_POST['addfriend']) && !isset($_POST['removefriend']) && !empty($_POST['addfriend'])){
-	$friendToAdd = $_POST['addfriend'];
-	
+	$friendToAdd = preg_replace('/[^A-Za-z0-9]/', "",$_POST['addfriend']);
 
 	$added = amqpAddFriend($username, $friendToAdd);
 	if($added)
@@ -55,7 +54,7 @@ if(isset($_POST['addfriend']) && !isset($_POST['removefriend']) && !empty($_POST
 }
 
 if(isset($_POST['removefriend']) && !isset($_POST['addfriend']) && !empty($_POST['removefriend'])){
-	$friendToRm = $_POST['removefriend'];
+	$friendToRm = preg_replace('/[^A-Za-z0-9]/', "",$_POST['removefriend']);
 	
 	$removed = amqpRmFriend($username, $friendToRm);
 	var_dump($removed);

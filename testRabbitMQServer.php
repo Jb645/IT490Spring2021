@@ -40,6 +40,8 @@ function requestProcessor($request)
       return $board = getLeaderboard();
     case "suggest":
       return $suggestion = getSuggestion($request['username']);
+    case "logger":
+      return logData($request['message']);
   }
 
   if(isset($weather_output))
