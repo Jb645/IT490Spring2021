@@ -227,7 +227,7 @@ function amqpSuggestOp($username)
 function amqpLog($data)
 {
   logData($data); //Put data on the webserver logs first
- /* $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
   if (isset($argv[1]))
   {
     $msg = $argv[1];
@@ -239,7 +239,7 @@ function amqpLog($data)
   $request = array();
   $request['type'] = "logger";
   $request['message'] = $msg;
-  $response = $client->send_request($request);*/
+  $response = $client->send_request($request);
 }
 
 
