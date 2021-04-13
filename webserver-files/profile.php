@@ -35,8 +35,13 @@ else
 	$user = $username;
 }
 
-echo $user;
 
+ $profile = amqpProfile($user);
+ if ($profile == null)
+   amqpLog("$username failed to get profile for: $user");
+ else
+   amqpLog("$username successfully retrieved profile for $user");
+ 
 ?> 
 
 <html>

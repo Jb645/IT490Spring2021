@@ -20,6 +20,8 @@ function requestProcessor($request)
   {
     case "login":	  
       return doLogin($request['username'],$request['password']);
+    case "logger":
+      return logData($request['message']);
     case "validate_session":
       return doValidate($request['sessionId']);
     case "create_account":
@@ -40,8 +42,8 @@ function requestProcessor($request)
       return $board = getLeaderboard();
     case "suggest":
       return $suggestion = getSuggestion($request['username']);
-    case "logger":
-      return logData($request['message']);
+    case "profile":
+      return $profile = getProfile($request['username']);
   }
 
   if(isset($weather_output))
