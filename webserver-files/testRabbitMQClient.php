@@ -242,4 +242,59 @@ function amqpLog($data)
   $response = $client->send_request($request);
 }
 
+function amqpProfile($username)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Profile info for: $username";
+  }
+  $request = array();
+  $request['type'] = "profile";
+  $request['username'] = $username;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpBalance($username)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Checking balance for: $username";
+  }
+  $request = array();
+  $request['type'] = "balance";
+  $request['username'] = $user;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpTransaction($username, $item)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Checking balance for: $username";
+  }
+  $request = array();
+  $request['type'] = "transaction";
+  $request['username'] = $user;
+  $request['item'] = $item;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
 

@@ -12,8 +12,10 @@ session_start();
 		<ul>
 			<li><a href = "leaderboards.php"> Leaderboards </a></li>
 			<li><a href = "matchmaking.php"> Suggest opponent </a></li>
+			<li><a href = "profile.php"> View profile </a></li>
 			<li><a href = "friends.php"> View friends </a></li>
 			<li><a href = "chat.php"> Chat </a></li>
+			<li><a href = "shop.php"> Shop </a></li>
 			<li><a href = "exit.php"> Exit </a></li>
 		</ul>
 		<br>
