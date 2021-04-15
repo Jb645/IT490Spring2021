@@ -5,6 +5,7 @@ session_start();
 	<head>
 		<title>Successful Login</title>
 		<link rel="stylesheet" href="WebpageStyle.css">
+		<link rel="stylesheet" href="bootstrap-5/css/bootstrap.css">
 	</head>
 	<body>
 	
@@ -19,7 +20,9 @@ session_start();
 		<br>
 		<p class = "Welcome">Welcome: <?php echo $_SESSION['login']; ?></p> <br>
 	</nav>
-	
+
+
+
 	</body>
 </html>
 <?php 

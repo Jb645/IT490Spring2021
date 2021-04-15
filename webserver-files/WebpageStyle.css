@@ -2,44 +2,92 @@
     margin: 0;
     padding: 0;
 }
-body{
+.body{
     margin: 1rem;
     font-family: Arial, Helvetica, sans-serif;
-    background: lightgray;
+    background-color: lightgray;
 }
 
-.nav ul{
+/* Navigation CSS */
+nav{
+    width: 97%;
+    margin-left: 1%;
+    margin-top: .5%;
+}
+nav ul{
+    position: relative;
     margin: 0;
     background: slategray;
     box-shadow: 5px 5px 0 darkslategrey;
     list-style-type: none;
     padding: 1rem 1rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: .2rem;
-    justify-content: left;
-    align-items: center;
 }
-.nav li{
-    background-color: rgba(17, 17, 17, 0.878);
-    padding: 1rem;
-    border-radius: 2%;
+nav ul li{
+
+    padding: 0 .25%;
+    width: 16.33%;
+    text-align: left;
 
 }
-.nav a{
+
+nav ul li a{
+    display: block;
+    margin: 0;
     list-style: none;
     text-decoration: none;
-    margin-right: 2rem;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    background: rgba(17, 17, 17, 0.878);
+    text-align: center;
+    padding: 1em 0;
+    font-size:.95em;
 }
+nav ul li a:hover{
+    background-color: #4b4e51;
+    color: white;
+}
+/* second Tier Navigation*/
+nav ul ul {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    display: none;
+    position: absolute;
+    top:80%;
+    width: 96%;
+}
+nav ul ul li {
+    padding: 0;
+    float: none;
+    color: white;
+}
+nav ul li:hover > ul{
+    display: block;
+}
+
+nav > ul::after{
+    content: "";
+    clear:both;
+    display: block;
+}
+
+
+
+
+
 
 /* Welcome */
 .Welcome{
+
+    top:1rem;
     background: white;
     padding: 1rem;
     box-shadow: 5px 5px slategray;
+
 }
 
 /*Header*/
