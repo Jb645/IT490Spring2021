@@ -287,4 +287,62 @@ function getProfile($username)
   */
   return null; 
 }
+
+function changeName($username, $password, $change)
+{
+  /*$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+     if ($row[0] == $username)	 
+     {
+	$mydb->close();
+        return false;	  
+     }
+  }
+  $sql = "UPDATE users SET username = $username WHERE username = $username"
+  $myQuery = $mydb->query($sql);
+  if ($myQuery == false)
+  {
+    $mydb->close();
+    return false;
+  }
+
+  $mydb->close();
+   */
+  return true;
+
+}
+
+function changePass($username, $password, $change)
+{
+  /*$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+     if ($row[0] == $username)   
+     {
+        $mydb->close();
+        return false;     
+     }
+  }
+  $sql = "UPDATE users SET password = $password WHERE username = $username"
+  $myQuery = $mydb->query($sql);
+  if ($myQuery == false)
+  {
+    $mydb->close();
+    return false;
+  }
+
+  $mydb->close();
+   */
+  return true;
+
+}
 ?>

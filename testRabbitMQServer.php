@@ -44,6 +44,10 @@ function requestProcessor($request)
       return $suggestion = getSuggestion($request['username']);
     case "profile":
       return $profile = getProfile($request['username']);
+    case "change-name":
+      return;
+    case "change-pass":
+      return;
   }
 
   if(isset($weather_output))

@@ -329,7 +329,7 @@ function amqpChangePassword($username, $password, $change)
     $msg = "Changing password for $username";
   }
   $request = array();
-  $request['type'] = "change-name";
+  $request['type'] = "change-pass";
   $request['username'] = $username;
   $request['password'] = $password;
   $request['change'] = $change;
