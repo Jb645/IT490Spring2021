@@ -297,4 +297,43 @@ function amqpTransaction($username, $item)
   $response = $client->send_request($request);
 }
 
+function amqpChangeName($username, $password, $change)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Changing username for $username to $change";
+  }
+  $request = array();
+  $request['type'] = "change-name";
+  $request['username'] = $username;
+  $request['password'] = $password;
+  $request['change'] = $change;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpChangePassword($username, $password, $change)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Changing password for $username";
+  }
+  $request = array();
+  $request['type'] = "change-name";
+  $request['username'] = $username;
+  $request['password'] = $password;
+  $request['change'] = $change;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
 
