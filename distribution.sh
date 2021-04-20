@@ -13,5 +13,6 @@ if [[ $STATUS == 1 ]]
 then
 	echo "Server is up"
 else
-	echo "Server is down"
+	echo "Server is down"	
 fi
+
