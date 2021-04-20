@@ -254,7 +254,7 @@ function getSuggestion($username)
 {
   $mydb = dbConnect();
   if(!isset($mydb))
-  {logData("Failed to connect"); return;}
+  {logData("$username failed to connect to db"); return;}
   $sql = "SELECT username FROM users WHERE NOT username = '$username'";
   $myQuery = $mydb->query($sql);
   $userArray = array();
@@ -262,8 +262,87 @@ function getSuggestion($username)
   	array_push($userArray, $row[0]);
   }
   $random = rand(0, (count($userArray)-1));
-  logData($random);
   $mydb->close();
   return $userArray[$random];
+}
+
+function getProfile($username)
+{
+  /*$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $sql = "SELECT * FROM users WHERE username = '$username'";
+  $myQuery = $mydb->query($sql);
+  $userInfo = array();
+  while($row = mysqli_fetch_row($myQuery)){
+        array_push($userInfo, $row[0]);
+  }
+  if(!isset($userInfo) || $userInfo = "")
+  {
+    return null;
+  } 
+
+  $mydb->close();
+  return $userArray;
+  */
+  return null; 
+}
+
+function changeName($username, $password, $change)
+{
+  /*$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+     if ($row[0] == $username)	 
+     {
+	$mydb->close();
+        return false;	  
+     }
+  }
+  $sql = "UPDATE users SET username = $username WHERE username = $username"
+  $myQuery = $mydb->query($sql);
+  if ($myQuery == false)
+  {
+    $mydb->close();
+    return false;
+  }
+
+  $mydb->close();
+   */
+  return true;
+
+}
+
+function changePass($username, $password, $change)
+{
+  /*$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+     if ($row[0] == $username)   
+     {
+        $mydb->close();
+        return false;     
+     }
+  }
+  $sql = "UPDATE users SET password = $password WHERE username = $username"
+  $myQuery = $mydb->query($sql);
+  if ($myQuery == false)
+  {
+    $mydb->close();
+    return false;
+  }
+
+  $mydb->close();
+   */
+  return true;
+
 }
 ?>

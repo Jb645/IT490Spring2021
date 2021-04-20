@@ -227,7 +227,7 @@ function amqpSuggestOp($username)
 function amqpLog($data)
 {
   logData($data); //Put data on the webserver logs first
- /* $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
   if (isset($argv[1]))
   {
     $msg = $argv[1];
@@ -239,7 +239,101 @@ function amqpLog($data)
   $request = array();
   $request['type'] = "logger";
   $request['message'] = $msg;
-  $response = $client->send_request($request);*/
+  $response = $client->send_request($request);
 }
 
+function amqpProfile($username)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Profile info for: $username";
+  }
+  $request = array();
+  $request['type'] = "profile";
+  $request['username'] = $username;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpBalance($username)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Checking balance for: $username";
+  }
+  $request = array();
+  $request['type'] = "balance";
+  $request['username'] = $user;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpTransaction($username, $item)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Checking balance for: $username";
+  }
+  $request = array();
+  $request['type'] = "transaction";
+  $request['username'] = $user;
+  $request['item'] = $item;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpChangeName($username, $password, $change)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Changing username for $username to $change";
+  }
+  $request = array();
+  $request['type'] = "change-name";
+  $request['username'] = $username;
+  $request['password'] = $password;
+  $request['change'] = $change;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
+function amqpChangePassword($username, $password, $change)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Changing password for $username";
+  }
+  $request = array();
+  $request['type'] = "change-pass";
+  $request['username'] = $username;
+  $request['password'] = $password;
+  $request['change'] = $change;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
 
