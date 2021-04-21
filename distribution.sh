@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVERIP=25.15.226.124
+SERVERIP=10.0.2.15
 STATUS=0
 
 server_status () {
@@ -14,5 +14,21 @@ then
 	echo "Server is up"
 else
 	echo "Server is down"	
+	exit
+fi
+
+echo "Your options are: UPLOAD or DOWNLOAD"
+read option
+
+if [[ $option == "UPLOAD" ]]
+then
+	echo "Creating and uploading package"
+	exit
+elif [[ $option == "DOWNLOAD" ]]
+then
+	echo "Checking files on server"
+	exit
+else
+	echo "Invalid command"
 fi
 
