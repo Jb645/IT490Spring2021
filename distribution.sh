@@ -1,10 +1,33 @@
 #!/bin/bash
 
-SERVERIP=10.0.2.15
+SERVERIP=25.14.165.46
 STATUS=0
 
 server_status () {
 	ping -c 3 $SERVERIP > /dev/null && STATUS=1 || STATUS=0
+}
+
+unused  () {
+	if diff -q ~/git/IT490Spring2021/logs.txt <(ssh sean@$SERVERIP cat /home/sean/Documents/Projects/IT490Spring2021/logs.txt) > /dev/null
+then
+        echo "Files are equal"
+else
+        echo "Files are different"
+fi
+}
+
+compare () {
+        if diff -q /home/tim/git/IT490Spring2021/logs.txt <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/logs.txt) > /dev/null
+then
+        echo "Files are equal"
+else
+        echo "Files are different"
+fi
+
+}
+
+upload () {
+	compare
 }
 
 server_status
@@ -23,6 +46,7 @@ read option
 if [[ $option == "UPLOAD" ]]
 then
 	echo "Creating and uploading package"
+	upload
 	exit
 elif [[ $option == "DOWNLOAD" ]]
 then
