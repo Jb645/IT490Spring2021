@@ -17,13 +17,16 @@ fi
 }
 
 compare () {
-        if diff -q /home/tim/git/IT490Spring2021/logs.txt <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/logs.txt) > /dev/null
-then
-        echo "Files are equal"
-else
-        echo "Files are different"
-fi
-
+	for entry in ~/git/IT490Spring2021/*
+	do
+		filename=$(basename -- $entry)
+		if diff -q $entry <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/$filename) > /dev/null
+		then
+        		echo "$filename files are equal"
+		else
+        		echo "$filename files are different"
+		fi
+	done
 }
 
 upload () {
