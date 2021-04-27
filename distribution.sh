@@ -3,6 +3,7 @@
 SERVERIP=25.14.165.46
 STATUS=0
 
+
 server_status () {
 	ping -c 3 $SERVERIP > /dev/null && STATUS=1 || STATUS=0
 }
@@ -16,21 +17,51 @@ else
 fi
 }
 
-compare () {
+compare_all () {
 	for entry in ~/git/IT490Spring2021/*
 	do
 		filename=$(basename -- $entry)
+		if [[ -d $entry ]]
+		then
+			echo "$filename is a directory"
+			NEWDIR=~/git/IT490Spring2021/$filename/
+			compare
+		fi
+
 		if diff -q $entry <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/$filename) > /dev/null
 		then
-        		echo "$filename files are equal"
+        		echo "$filename files are the same"	
 		else
         		echo "$filename files are different"
 		fi
 	done
+	echo "Done"
+}
+
+compare () {
+	 
+	for entry in $NEWDIR*
+        do
+                filename=$(basename -- $entry)
+                if [[ -d $entry ]]
+                then
+                        echo "$filename is a directory"
+                	$NEWDIR=$NEWDIR$filename/
+			compare
+		fi
+
+                if diff -q $entry <(ssh tim@$SERVERIP cat $NEWDIR$filename) > /dev/null
+                then
+                	echo "$filename files are the same"
+                else
+                        echo "$filename files are different"
+                fi
+        done
+
 }
 
 upload () {
-	compare
+	compare_all
 }
 
 server_status
