@@ -3,6 +3,7 @@
 SERVERIP=25.14.165.46
 STATUS=0
 COUNT=0
+EXCLUDEFILE=~/git/IT490Spring2021/avoid.txt
 
 
 server_status () {
@@ -79,6 +80,15 @@ else
 	exit
 fi
 
+echo "Exluding the following files:"
+i=0
+while IFS= read -r line; do
+	EXCLUDELIST[$i]=$line
+	echo "$line"
+	i=($i+1)
+done < $EXCLUDEFILE
+echo "========================================"
+
 echo "Your options are: UPLOAD or DOWNLOAD"
 read option
 
@@ -94,4 +104,5 @@ then
 else
 	echo "Invalid command"
 fi
+
 
