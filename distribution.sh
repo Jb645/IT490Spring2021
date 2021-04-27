@@ -33,11 +33,17 @@ compare_all () {
 		fi
 
 		filename=$(basename -- $entry)
+
 		if [[ -d $entry ]]
 		then
 			echo "$filename is a directory"
 			NEWDIR=~/git/IT490Spring2021/$filename/
 			compare
+		fi
+		
+		if [[ $filename == SKIP ]]
+		then 
+			continue
 		fi
 
 		if diff -q $entry <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/$filename) > /dev/null
@@ -59,15 +65,21 @@ compare () {
                 then
                         EXCLUDE=0
                         continue
-                fi
+              	fi
 
                 filename=$(basename -- $entry)
-                if [[ -d $entry ]]
+                 
+		if [[ -d $entry ]]
                 then
                         echo "$filename is a directory"
 			NEWDIR=$NEWDIR$filename/
 			compare
 		fi
+
+	        if [[ $filename == SKIP ]]
+                then
+                        continue
+                fi
 
                 if diff -q $entry <(ssh tim@$SERVERIP cat $NEWDIR$filename) > /dev/null
                 then
@@ -80,6 +92,8 @@ compare () {
 	if [[ $COUNT < 1 ]]
 	then
 		NEWDIR=$(dirname $NEWDIR)/
+		COUNT=($COUNT-1)
+		filename='SKIP'
 	fi
 }
 
