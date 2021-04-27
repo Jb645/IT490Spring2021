@@ -2,6 +2,7 @@
 
 SERVERIP=25.14.165.46
 STATUS=0
+COUNT=0
 
 
 server_status () {
@@ -39,14 +40,14 @@ compare_all () {
 }
 
 compare () {
-	 
+	COUNT=$count+1
 	for entry in $NEWDIR*
         do
                 filename=$(basename -- $entry)
                 if [[ -d $entry ]]
                 then
                         echo "$filename is a directory"
-                	$NEWDIR=$NEWDIR$filename/
+			NEWDIR=$NEWDIR$filename/
 			compare
 		fi
 
@@ -57,7 +58,11 @@ compare () {
                         echo "$filename files are different"
                 fi
         done
-
+	
+	if [[ $COUNT < 1 ]]
+	then
+		NEWDIR=$(dirname $NEWDIR)/
+	fi
 }
 
 upload () {
