@@ -3,8 +3,11 @@
 SERVERIP=25.14.165.46
 STATUS=0
 COUNT=0
-EXCLUDEFILE=~/git/IT490Spring2021/avoid.txt
 
+EXCLUDEFILE=~/git/IT490Spring2021/avoid.txt
+EXCLUDE=0
+
+declare -a EXCLUDEARRAY
 
 server_status () {
 	ping -c 3 $SERVERIP > /dev/null && STATUS=1 || STATUS=0
@@ -22,6 +25,13 @@ fi
 compare_all () {
 	for entry in ~/git/IT490Spring2021/*
 	do
+		check_exclude
+		if [[ $EXCLUDE == 1 ]]
+		then
+			EXCLUDE=0
+			continue
+		fi
+
 		filename=$(basename -- $entry)
 		if [[ -d $entry ]]
 		then
@@ -44,6 +54,13 @@ compare () {
 	COUNT=$count+1
 	for entry in $NEWDIR*
         do
+                check_exclude
+                if [[ $EXCLUDE == 1 ]]
+                then
+                        EXCLUDE=0
+                        continue
+                fi
+
                 filename=$(basename -- $entry)
                 if [[ -d $entry ]]
                 then
@@ -66,6 +83,20 @@ compare () {
 	fi
 }
 
+check_exclude ()
+{
+	arraylength=${#EXCLUDEARRAY[@]}
+	for (( i=0; i<${arraylength}+1; i++ ));
+        do
+		if [[ "${EXCLUDEARRAY[$i]}" == "$entry" ]]
+                then
+			echo "$entry is excluded"
+			EXCLUDE=1
+               		break
+                fi
+        done
+}
+
 upload () {
 	compare_all
 }
@@ -81,12 +112,13 @@ else
 fi
 
 echo "Exluding the following files:"
+
 i=0
 while IFS= read -r line; do
-	EXCLUDELIST[$i]=$line
-	echo "$line"
+	EXCLUDEARRAY[i]=$line
 	i=($i+1)
 done < $EXCLUDEFILE
+echo ${EXCLUDEARRAY[*]}
 echo "========================================"
 
 echo "Your options are: UPLOAD or DOWNLOAD"
