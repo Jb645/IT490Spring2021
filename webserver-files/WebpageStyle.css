@@ -252,4 +252,7 @@ main .container .row{
     .ProfileTop{
         height: 40%;
     }
+    .ProfileMid{
+        height: 70%;
+    }
 }
