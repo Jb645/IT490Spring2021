@@ -1,0 +1,112 @@
+<?php
+session_start();
+?>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="WebpageStyle.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+              rel="stylesheet"
+              integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+              crossorigin="anonymous">
+        <title>Successful Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <body class="body Account">
+
+    <nav>
+        <ul>
+            <li><a href = "leaderboards.php"> Leaderboards </a></li>
+            <li><a href = "matchmaking.php"> Suggest opponent </a></li>
+            <li><a href = "#"> Store </a></li>
+            <li><a href = "chat.php"> Chat </a></li>
+            <li><a href="#"> Profile </a>
+                <ul>
+                    <li><a href="#">Achievements</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="friends.php">View Friends</a></li>
+                </ul>
+            </li>
+            <li><a href = "exit.php"> Exit </a></li>
+
+        </ul>
+        <br>
+        <br>
+    </nav>
+
+
+        <div class="ProfileTop">
+            <aside class="Stage1">
+                <img src="Images/ProfilePage.png" alt="placeholderImage">
+            </aside>
+            <main>
+                <p class = "Welcome">Welcome: <?php echo $_SESSION['login']; ?></p> <br>
+            </main>
+        </div>
+
+        <div class="ProfileMid">
+            <a class="clear full" href = "modify-friends.php"> Add/remove friends</a> <br>
+            <aside>
+                <p>Friends List:</p> <br>
+                <?php
+                    ini_set('display_errors',1);
+                    ini_set('display_startup_errors', 1);
+                    error_reporting(E_ALL ^ E_DEPRECATED);
+
+                    require("testRabbitMQClient.php");
+
+                    $username = $_SESSION['login'];
+
+                    if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
+                    {
+                        echo nl2br("Session is good\n");
+                        $friends = amqpFriendslist($username);
+                        echo nl2br("\n\nCurrent Friends: \n");
+                        $count = 0;
+                        while($count < count($friends))
+                        {
+                            echo nl2br("\n" . ($count + 1) . ": $friends[$count]");
+                            $count ++;
+                        }
+                    }
+                    else
+                    {
+                        header("Location: index.php");
+                    }
+                ?>
+            </aside>
+            <main>
+                <p> Achievements:</p>
+                <ul>
+                    <li>achivement1</li>
+                    <li>achivement2</li>
+                    <li>achivement3</li>
+                    <li>achivement4</li>
+                    <li>achivement5</li>
+
+                </ul>
+            </main>
+        </div>
+        <footer>
+            <a href = "loggedIn.php"> Back</a> <br>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+    </body>
+</html>
+
+<?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL ^ E_DEPRECATED);
+
+if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
+{
+	echo "Session is good.\n";
+}
+else
+{
+	header("Location: index.php");
+}
+?>
