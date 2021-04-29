@@ -6,6 +6,7 @@ COUNT=0
 EXCLUDE=0
 
 declare -a EXCLUDEARRAY
+declare -a DIFFERENCES
 
 init () {
 	i=0
@@ -45,7 +46,7 @@ fi
 }
 
 compare_all () {
-	for entry in ~/git/IT490Spring2021/*
+	for entry in ~/git/rabbitmqphp_example/*
 	do
 		check_exclude
 		if [[ $EXCLUDE == 1 ]]
@@ -59,7 +60,7 @@ compare_all () {
 		if [[ -d $entry ]]
 		then
 			echo "$filename is a directory"
-			NEWDIR=~/git/IT490Spring2021/$filename/
+			NEWDIR=~/git/rabbitmqphp_example/$filename/
 			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
 		fi
@@ -73,10 +74,16 @@ compare_all () {
 		then
         		echo "$filename files are the same"	
 		else
+			DIFFERENCES+=($entry)
         		echo "$filename files are different"
 		fi
 	done
 	echo "Done"
+	echo "Total differences:"
+	for value in "${DIFFERENCES[@]}"
+	do
+		echo $value
+	done
 }
 
 compare () {
@@ -138,6 +145,14 @@ check_exclude ()
 
 upload () {
 	compare_all
+
+        for entry in "${DIFFERENCES[@]}"
+        do
+        	tim@$SERVERIP:$ABSOLUTEPATH $entry
+		
+		diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH) > /dev/null
+
+	done
 }
 
 init
