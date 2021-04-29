@@ -17,7 +17,8 @@ init () {
   	 i=1
 	elif [[ $i == 1 ]]
 	then
-	  ABOSLUTEPATH="${line:15}"
+	  ABSOLUTEPATH="${line:15}"
+	  echo $ABSOLUTEPATH 
 	  i=2	
   	elif [[ $i == 2 ]]
 	then
@@ -59,6 +60,7 @@ compare_all () {
 		then
 			echo "$filename is a directory"
 			NEWDIR=~/git/IT490Spring2021/$filename/
+			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
 		fi
 		
@@ -67,7 +69,7 @@ compare_all () {
 			continue
 		fi
 
-		if diff -q $entry <(ssh tim@$SERVERIP cat /home/tim/git/IT490Spring2021/$filename) > /dev/null
+		if diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH$filename) > /dev/null
 		then
         		echo "$filename files are the same"	
 		else
@@ -94,6 +96,7 @@ compare () {
                 then
                         echo "$filename is a directory"
 			NEWDIR=$NEWDIR$filename/
+			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
 		fi
 
@@ -102,7 +105,7 @@ compare () {
                         continue
                 fi
 
-                if diff -q $entry <(ssh tim@$SERVERIP cat $NEWDIR$filename) > /dev/null
+                if diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH$filename) > /dev/null
                 then
                 	echo "$filename files are the same"
                 else
@@ -113,6 +116,7 @@ compare () {
 	if [[ $COUNT < 1 ]]
 	then
 		NEWDIR=$(dirname $NEWDIR)/
+		ABSOLUTEPATH=$(dirname $ABSOLUTEPATH)/
 		COUNT=($COUNT-1)
 		filename='SKIP'
 	fi
