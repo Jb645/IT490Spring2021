@@ -46,7 +46,7 @@ fi
 }
 
 compare_all () {
-	for entry in ~/git/rabbitmqphp_example/*
+	for entry in ~/git/IT490Spring2021/*
 	do
 		check_exclude
 		if [[ $EXCLUDE == 1 ]]
@@ -60,7 +60,7 @@ compare_all () {
 		if [[ -d $entry ]]
 		then
 			echo "$filename is a directory"
-			NEWDIR=~/git/rabbitmqphp_example/$filename/
+			NEWDIR=~/git/IT490Spring2021/$filename/
 			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
 		fi
@@ -145,13 +145,26 @@ check_exclude ()
 
 upload () {
 	compare_all
+	
+	echo "Are you sure you want to upload (YES/NO?)"
+	read option
 
-        for entry in "${DIFFERENCES[@]}"
+	if [[ $option == "NO" ]]
+	then
+        	echo "Goodbye"
+        	exit
+	elif [[ $option == "YES" ]]
+	then
+		echo "Uploading"
+	else
+		echo "Command invalid"
+		exit
+	fi
+
+
+	for entry in "${DIFFERENCES[@]}"
         do
-        	tim@$SERVERIP:$ABSOLUTEPATH $entry
-		
-		diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH) > /dev/null
-
+        	scp $entry tim@$SERVERIP:$ABSOLUTEPATH
 	done
 }
 
