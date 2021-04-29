@@ -1,13 +1,34 @@
 #!/bin/bash
 
-SERVERIP=25.14.165.46
+CONFIG=~/git/IT490Spring2021/distribution.conf
 STATUS=0
 COUNT=0
-
-EXCLUDEFILE=~/git/IT490Spring2021/avoid.txt
 EXCLUDE=0
 
 declare -a EXCLUDEARRAY
+
+init () {
+	i=0
+	while IFS= read -r line;
+	do
+	if [[ $i == 0 ]]
+	then
+	 SERVERIP="${line:11}"
+  	 i=1
+	elif [[ $i == 1 ]]
+	then
+	  ABOSLUTEPATH="${line:15}"
+	  i=2	
+  	elif [[ $i == 2 ]]
+	then
+	  EXCLUDEFILE="${line:14}"
+	fi
+	done < $CONFIG
+
+
+echo $TEST
+
+}
 
 server_status () {
 	ping -c 3 $SERVERIP > /dev/null && STATUS=1 || STATUS=0
@@ -115,6 +136,7 @@ upload () {
 	compare_all
 }
 
+init
 server_status
 
 if [[ $STATUS == 1 ]]
@@ -125,13 +147,13 @@ else
 	exit
 fi
 
-echo "Exluding the following files:"
+echo "$EXCLUDEFILE is exluding the following files:"
 
 i=0
 while IFS= read -r line; do
 	EXCLUDEARRAY[i]=$line
 	i=($i+1)
-done < $EXCLUDEFILE
+done < "$EXCLUDEFILE"
 echo ${EXCLUDEARRAY[*]}
 echo "========================================"
 
