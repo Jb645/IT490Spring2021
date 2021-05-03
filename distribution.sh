@@ -59,7 +59,7 @@ compare_all () {
 
 		if [[ -d $entry ]]
 		then
-			echo "$filename is a directory"
+			echo "$filename is a directory"    
 			NEWDIR=~/git/IT490Spring2021/$filename/
 			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
@@ -117,7 +117,8 @@ compare () {
                 	echo "$filename files are the same"
                 else
                         echo "$filename files are different"
-                fi
+			DIFFERENCES+=($entry)
+		fi
         done
 	
 	if [[ $COUNT < 1 ]]
@@ -160,12 +161,35 @@ upload () {
 		echo "Command invalid"
 		exit
 	fi
-
-
+	
+	NEWDIR=$ABSOLUTEPATH
 	for entry in "${DIFFERENCES[@]}"
         do
-        	scp $entry tim@$SERVERIP:$ABSOLUTEPATH
+		PARENTDIR="$(dirname "$entry")"
+		if [[ $PARENTDIR != $NEWDIR ]]
+		then
+			PARENTDIR=$(basename -- "$PARENTDIR")
+			ssh tim@$SERVERIP "mkdir -p $NEWDIR$PARENTDIR"
+			NEWDIR=$ABSOLUTEPATH$PARENTDIR
+			echo "Making dir"
+		fi
+		scp $entry tim@$SERVERIP:$NEWDIR
 	done
+}
+
+upload_dir () {
+	        PARENTDIR="$(dirname "$entry")"
+                if [[ $PARENTDIR != $NEWDIR ]]
+                then
+                        PARENTDIR=$(basename -- "$PARENTDIR")
+                        ssh tim@$SERVERIP "mkdir -p $ABSOLUTEPATH$PARENTDIR"
+                        NEWDIR=$ABSOLUTEPATH$PARENTDIR
+                        echo "Making dir"
+                        upload_dir
+                fi
+                scp $entry tim@$SERVERIP:$ABSOLUTEPATH$NEWDIR
+
+	
 }
 
 init
