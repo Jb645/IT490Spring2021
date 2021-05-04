@@ -1,0 +1,4 @@
+/home/tim/git/rabbitmqphp_example/distribution_client_dl.sh
+/home/tim/git/rabbitmqphp_example/avoid.txt
+/home/tim/git/rabbitmqphp_example/distribution.conf
+/home/tim/git/rabbitmqphp_example/rpc
