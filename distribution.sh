@@ -121,13 +121,10 @@ compare () {
 		fi
         done
 	
-	if [[ $COUNT < 1 ]]
-	then
-		NEWDIR=$(dirname $NEWDIR)/
-		ABSOLUTEPATH=$(dirname $ABSOLUTEPATH)/
-		COUNT=($COUNT-1)
-		filename='SKIP'
-	fi
+	NEWDIR=$(dirname $NEWDIR)/
+	ABSOLUTEPATH=$(dirname $ABSOLUTEPATH)/
+	COUNT=($COUNT-1)
+	filename='SKIP'
 }
 
 check_exclude ()
@@ -162,34 +159,32 @@ upload () {
 		exit
 	fi
 	
-	NEWDIR=$ABSOLUTEPATH
+	BASEDIRNAME=IT490Spring2021
+	TARGET=${ABSOLUTEPATH%?}
 	for entry in "${DIFFERENCES[@]}"
         do
-		PARENTDIR="$(dirname "$entry")"
-		if [[ $PARENTDIR != $NEWDIR ]]
-		then
-			PARENTDIR=$(basename -- "$PARENTDIR")
-			ssh tim@$SERVERIP "mkdir -p $NEWDIR$PARENTDIR"
-			NEWDIR=$ABSOLUTEPATH$PARENTDIR
-			echo "Making dir"
-		fi
-		scp $entry tim@$SERVERIP:$NEWDIR
+		TEMPDIR=""
+		PARENTDIR="$(dirname $entry)"
+		check_dir
+		ssh tim@$SERVERIP "mkdir -p $TARGET$TEMPDIR"
+		scp $entry tim@$SERVERIP:$TARGET$TEMPDIR/
 	done
 }
 
-upload_dir () {
-	        PARENTDIR="$(dirname "$entry")"
-                if [[ $PARENTDIR != $NEWDIR ]]
-                then
-                        PARENTDIR=$(basename -- "$PARENTDIR")
-                        ssh tim@$SERVERIP "mkdir -p $ABSOLUTEPATH$PARENTDIR"
-                        NEWDIR=$ABSOLUTEPATH$PARENTDIR
-                        echo "Making dir"
-                        upload_dir
-                fi
-                scp $entry tim@$SERVERIP:$ABSOLUTEPATH$NEWDIR
+check_dir () {
+	PARENTDIRNAME="${PARENTDIR##*/}"
+	if [[ $PARENTDIRNAME != $BASEDIRNAME ]]
+	then
+		echo "$PARENTDIRNAME != $BASEDIRNAME"
+		PARENTDIR="$(dirname $PARENTDIR)"
+		TEMPDIR="/$PARENTDIRNAME$TEMPDIR"
+		echo $TEMPDIR
+		check_dir
+	else
+		echo "$PARENTDIRNAME == $CURRENTDIRNAME"
+	fi
 
-	
+
 }
 
 init
