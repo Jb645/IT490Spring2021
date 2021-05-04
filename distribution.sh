@@ -15,16 +15,24 @@ init () {
 	if [[ $i == 0 ]]
 	then
 	 SERVERIP="${line:11}"
-  	 i=1
 	elif [[ $i == 1 ]]
 	then
+	 SERVER="${line:6}"
+	 SERVER=$SERVER@$SERVERIP
+	 echo $SERVER
+	elif [[ $i == 2 ]]
+	then
 	  ABSOLUTEPATH="${line:15}"
-	  echo $ABSOLUTEPATH 
-	  i=2	
-  	elif [[ $i == 2 ]]
+	  echo $ABSOLUTEPATH
+  	elif [[ $i == 3 ]]
+      	then
+	  CLIENTPATH="${line:9}"
+	  echo $CLIENTPATH	  
+  	elif [[ $i == 4 ]]
 	then
 	  EXCLUDEFILE="${line:14}"
 	fi
+	i=$((i+1))
 	done < $CONFIG
 
 
@@ -36,17 +44,8 @@ server_status () {
 	ping -c 3 $SERVERIP > /dev/null && STATUS=1 || STATUS=0
 }
 
-unused  () {
-	if diff -q ~/git/IT490Spring2021/logs.txt <(ssh sean@$SERVERIP cat /home/sean/Documents/Projects/IT490Spring2021/logs.txt) > /dev/null
-then
-        echo "Files are equal"
-else
-        echo "Files are different"
-fi
-}
-
 compare_all () {
-	for entry in ~/git/IT490Spring2021/*
+	for entry in $CLIENTPATH*
 	do
 		check_exclude
 		if [[ $EXCLUDE == 1 ]]
@@ -60,7 +59,7 @@ compare_all () {
 		if [[ -d $entry ]]
 		then
 			echo "$filename is a directory"    
-			NEWDIR=~/git/IT490Spring2021/$filename/
+			NEWDIR=$CLIENTPATH$filename/
 			ABSOLUTEPATH=$ABSOLUTEPATH$filename/
 			compare
 		fi
@@ -70,7 +69,7 @@ compare_all () {
 			continue
 		fi
 
-		if diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH$filename) > /dev/null
+		if diff -q $entry <(ssh $SERVER cat $ABSOLUTEPATH$filename) > /dev/null
 		then
         		echo "$filename files are the same"	
 		else
@@ -112,7 +111,7 @@ compare () {
                         continue
                 fi
 
-                if diff -q $entry <(ssh tim@$SERVERIP cat $ABSOLUTEPATH$filename) > /dev/null
+                if diff -q $entry <(ssh $SERVER cat $ABSOLUTEPATH$filename) > /dev/null
                 then
                 	echo "$filename files are the same"
                 else
@@ -159,15 +158,16 @@ upload () {
 		exit
 	fi
 	
-	BASEDIRNAME=IT490Spring2021
+	CLIENTPATH=${CLIENTPATH%?}
+	BASEDIRNAME="${CLIENTPATH##*/}"
 	TARGET=${ABSOLUTEPATH%?}
 	for entry in "${DIFFERENCES[@]}"
         do
 		TEMPDIR=""
 		PARENTDIR="$(dirname $entry)"
 		check_dir
-		ssh tim@$SERVERIP "mkdir -p $TARGET$TEMPDIR"
-		scp $entry tim@$SERVERIP:$TARGET$TEMPDIR/
+		ssh $SERVER "mkdir -p $TARGET$TEMPDIR"
+		scp $entry $SERVER:$TARGET$TEMPDIR/
 	done
 }
 
@@ -175,13 +175,10 @@ check_dir () {
 	PARENTDIRNAME="${PARENTDIR##*/}"
 	if [[ $PARENTDIRNAME != $BASEDIRNAME ]]
 	then
-		echo "$PARENTDIRNAME != $BASEDIRNAME"
 		PARENTDIR="$(dirname $PARENTDIR)"
 		TEMPDIR="/$PARENTDIRNAME$TEMPDIR"
 		echo $TEMPDIR
 		check_dir
-	else
-		echo "$PARENTDIRNAME == $CURRENTDIRNAME"
 	fi
 
 
