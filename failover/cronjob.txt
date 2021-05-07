@@ -1,0 +1,7 @@
+--------------------
+SHELL=/bin/bash
+* * * * * /home/tim/bin/if-machine-up.sh &>> /home/tim/bin/logs.txt
+-------------------
+
+EXPLANATION:
+Every minute, cronjob checks if machine (ip specified in standby.conf) is up, if it's not up, the machine swaps in
