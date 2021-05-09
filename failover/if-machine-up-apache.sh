@@ -48,4 +48,6 @@ else
 	# For local logs
         echo "Machine: $MACHINEIP is down, swapping in"
 	sed -i '2s/.*/on-standby: 0/' $CONFIG
+
+	echo "tim123" | sudo -S /etc/init.d/apache2 start	
 fi
