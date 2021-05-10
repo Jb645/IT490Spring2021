@@ -12,8 +12,11 @@ $channel->queue_declare('Weather', false, false, false, false);
 function returnCall($n){
   echo ' [x] Received ',$n, "\n";
 
-  $output = "IP received".$n;
+  $output = "IP received";
+
   shell_exec("printf '$n' >> ip.txt");
+  shell_exec("date >> ip.txt");
+  shell_exec("echo '-----------------------------------------------' >> ip.txt");
   return $output;
 
 }
