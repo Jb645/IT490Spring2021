@@ -7,8 +7,9 @@
     font-family: Arial, Helvetica, sans-serif;
     background-color: lightgray;
 }
+
 body{
-    background-color: lightgray;
+    background-color: lightgray!important;
     width: 100%;
 }
 /* Navigation CSS */
@@ -80,15 +81,17 @@ nav > ul::after{
 }
 
 /* Welcome */
-.Welcome{
+#Welcome {
 
     top:1rem;
     background: white;
     padding: 1rem;
     box-shadow: 5px 5px slategray;
-
+    height: unset;
 }
-
+.misc #Welcome{
+    margin: 0 2% 1%;
+}
 /*Header*/
 
 header{
@@ -99,6 +102,7 @@ header{
 /*Footer*/
 footer{
     height: 10%;
+
 }
 footer a{
     position: absolute;
@@ -217,8 +221,78 @@ main .container .row{
     width: 100%;
     padding: 1% 0;
 }
+.Account main{
+
+}
+.Account main p{
+    height: 5%;
+    margin-bottom: 1%;
+    clear: both;
+}
+.Account main ul{
+    display: flex;
+
+    padding: 0 10% !important;
+}
+.Account main ul img{
+    width: 100%;
+    flex-wrap: wrap;
+
+}
+.Account main ul{
+    list-style: none;
+    padding: 0 2% 0 0;
+}
 
 
+
+/* shop */
+.shop{
+    width: 100%;
+}
+.shop nav{
+    height: 10%;
+
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+}
+.shop nav ul ul{
+    padding: 0;
+}
+.shop nav ul{
+    padding: 1em 1em;
+}
+.shop .container{
+    max-width: 100%;
+}
+.shop-row {
+    padding: 1% 0;
+    margin-right: 0;
+}
+.shop .title{
+    margin-top: 0;
+}
+.shop img{
+    height: auto;
+    width: 150%;
+}
+.shop div .col{
+    height: 100%;
+    min-height: 4em;
+}
+
+
+
+/* misc */
+
+.misc main.body{
+    margin-left: 2%;
+    background: white;
+    padding: 1%;
+}
+
+/*bigger than landscape*/
 @media only screen and (min-width:1193px){
     .ProfileTop{
         height: 43%;
@@ -229,30 +303,122 @@ main .container .row{
     .ProfileMid, .ProfileMid main,.ProfileMid aside {
         border: 4px solid  slategray;
     }
-
-
+    .shop img{
+        height: auto;
+        width: 200%;
+    }
+    .container{
+        max-width: 96%!important;
+        margin-left: 1% !important;
+    }
 }
+/*portrait*/
 @media only screen and (max-width: 479px){
     body{
         width: 90%;
     }
+
     .ProfileTop{
         height: 13%;
     }
     nav ul li a{
         font-size: 40%;
     }
-
+    .shop .row{
+        display: block;
+    }
+    .shop div .col{
+        height: 24%;
+        width: 60%;
+        margin: 1% auto 2%;
+    }
+    .shop .col img{
+        width: 250%;
+    }
+    .shop ul{
+        padding-top: 1%;
+    }
+    .shop-row{
+        padding-top: 4%;
+    }
+    nav ul{
+        background: #4b525f;
+        box-shadow: none!important;
+    }
+    nav ul li{
+        width: 100% !important;
+    }
+    nav ul li a{
+        width: 100%!important;
+    }
+    nav ul li ul li{
+        width: 96% !important;
+    }
+    .Account main ul{
+        margin: 0 auto 5%;
+    }
 }
+/*Landscape*/
 @media only screen and (max-width: 767px) and (min-width: 480px){
 
     body{
         width:98%;
+    }
+    body.misc{
+        width: 100%;
     }
     .ProfileTop{
         height: 40%;
     }
     .ProfileMid{
         height: 70%;
+    }
+    .shop .row{
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+    .shop .container .row{
+        margin-top: 2%;
+    }
+    .shop .row div{
+        height: 100%;
+        width: 38%;
+        margin: 3% 6% 3%;
+    }
+    .shop .col img{
+        width: 250%;
+    }
+    .shop .col{
+        flex: 0 0 auto;
+    }
+    .shop ul{
+        padding-top: 1%;
+    }
+    .nav ul li{
+        width: 80%;
+    }
+    nav ul{
+        background: #4b525f;
+        box-shadow: none!important;
+    }
+    nav ul li{
+        width: 100% !important;
+    }
+    nav ul li a{
+        width: 100%!important;
+    }
+    nav ul li ul li{
+        width: 96% !important;
+    }
+    /* Account extra*/
+    .ProfileMid{
+        height: 105%;
+    }
+    .Account main ul{
+        margin: 0 auto 5%;
+    }
+    .Account main ul li{
+        margin-right: 5%;
     }
 }

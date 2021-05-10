@@ -11,20 +11,34 @@ session_start();
               crossorigin="anonymous">
         <title>Successful Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Slick Nav-->
+        <link rel="stylesheet" href="css/slicknav.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function (){
+                $('#nav_menu').slicknav({prependTo: "#mobile_menu"});
+            });
+        </script>
+
+
+
+
     </head>
     <body class="body Account">
 
-    <nav>
+    <nav id="mobile_menu"></nav>
+    <nav class="container" id="nav_menu">
         <ul>
             <li><a href = "leaderboards.php"> Leaderboards </a></li>
-            <li><a href = "matchmaking.php"> Suggest opponent </a></li>
+            <li><a href = "matchmaking.php"> MatchMaking </a></li>
             <li><a href = "#"> Store </a></li>
             <li><a href = "chat.php"> Chat </a></li>
             <li><a href="#"> Profile </a>
                 <ul>
                     <li><a href="#">Achievements</a></li>
-                    <li><a href="#">Account</a></li>
-                    <li><a href="friends.php">View Friends</a></li>
+                    <li><a href="Account.html">Account</a></li>
+                    <li><a href="modify-friends.html">Add Friends</a></li>
                 </ul>
             </li>
             <li><a href = "exit.php"> Exit </a></li>
@@ -34,13 +48,14 @@ session_start();
         <br>
     </nav>
 
+    <!-- Achievements -->
 
         <div class="ProfileTop">
             <aside class="Stage1">
                 <img src="Images/ProfilePage.png" alt="placeholderImage">
             </aside>
             <main>
-                <p class = "Welcome">Welcome: <?php echo $_SESSION['login']; ?></p> <br>
+                <p id = "Welcome">Welcome: <?php echo $_SESSION['login']; ?></p> <br>
             </main>
         </div>
 
@@ -76,14 +91,19 @@ session_start();
                 ?>
             </aside>
             <main>
-                <p> Achievements:</p>
+                <p> Achievements:</p> <br>
+                <p> <?php echo $killimage1; ?></p>
                 <ul>
-                    <li>achivement1</li>
-                    <li>achivement2</li>
-                    <li>achivement3</li>
-                    <li>achivement4</li>
-                    <li>achivement5</li>
+                    <li><img id="kill" src="Images/Kills/kill_off.png" alt="kill"> </li>
+                    <li><img id="kill2"  src="Images/Kills/kill2_off.png" alt="kill2"></li>
+                </ul>
+                <ul>
+                    <li><img id="kill3" src="Images/Kills/kill3_off.png" alt="kill3"></li>
+                    <li><img id="kill4" src="Images/Kills/kill4_off.png" alt="kill4"> </li>
 
+                </ul>
+                <ul>
+                    <li><img id="kill5"  src="Images/Kills/kill5_off.png" alt="kill5"> </li>
                 </ul>
             </main>
         </div>
@@ -94,6 +114,13 @@ session_start();
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     </body>
+
+    <!--  Possible options for changing thing
+    <script type="text/javascript">
+        let image = document.getElementById("kill").src = "Images/Kills/kill.png";
+    </script>
+    -->
+
 </html>
 
 <?php
@@ -110,3 +137,4 @@ else
 	header("Location: index.php");
 }
 ?>
+
