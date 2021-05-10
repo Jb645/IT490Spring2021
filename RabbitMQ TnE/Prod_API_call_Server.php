@@ -66,7 +66,7 @@ private $corr_id;
 
 
 if (empty($data)) {
-  $data = shell_exec("hamachi | grep -o '25\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'
+  $data = shell_exec("./info.sh
   ");
 }
 /*

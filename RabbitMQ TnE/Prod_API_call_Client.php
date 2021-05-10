@@ -13,7 +13,7 @@ function returnCall($n){
   echo ' [x] Received ',$n, "\n";
 
   $output = "IP received".$n;
-
+  shell_exec("printf '$n' >> ip.txt");
   return $output;
 
 }
