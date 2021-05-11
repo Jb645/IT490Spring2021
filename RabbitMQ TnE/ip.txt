@@ -2,3 +2,19 @@ ubuntu@25.14.14.158
 /home/sean/Documents/Projects/IT490Spring2021/RabbitMQ TnE
 Sun 09 May 2021 05:40:30 PM PDT
 -----------------------------------------------
+ubuntu@25.14.14.158
+/home/sean/Documents/Projects/IT490Spring2021/RabbitMQ TnE
+Mon 10 May 2021 05:46:21 PM PDT
+-----------------------------------------------
+ubuntu@25.14.14.158
+/home/sean/Documents/Projects/IT490Spring2021/RabbitMQ TnE
+Mon 10 May 2021 05:54:27 PM PDT
+-----------------------------------------------
+ubuntu@25.14.14.158
+/home/sean/Documents/Projects/IT490Spring2021/RabbitMQ TnE
+Mon 10 May 2021 06:44:06 PM PDT
+-----------------------------------------------
+jb645-VirtualBox@25.15.226.124
+/home/josuebenavides/git/IT490Spring2021/RabbitMQ TnE
+Mon 10 May 2021 07:20:40 PM PDT
+-----------------------------------------------

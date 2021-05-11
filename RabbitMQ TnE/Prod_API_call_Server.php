@@ -15,7 +15,7 @@ private $corr_id;
 
   public function __construct(){
     //connection string
-    $this->connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test',"QA&Prod");
+    $this->connection = new AMQPStreamConnection('25.15.226.124', 5672, 'test', 'test',"Prod");
 
   //make a connection to the channel on the server
   $this->channel = $this->connection->channel();
