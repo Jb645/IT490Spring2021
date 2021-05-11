@@ -1,17 +1,33 @@
-<html>
+<html class="create">
 	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="WebpageStyle.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+			  rel="stylesheet"
+			  integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+			  crossorigin="anonymous">
 		<title>Make account</title>
 	</head>
-	<body>
-	<h1> Create an account</h1>
-		<form name="create" id="myForm" method="POST">
-			<label for="username">Username: </label>
-			<input type="username" id="username" name="username" placeholder="Enter Username" autocomplete="off"/>
-			<label for="pass">Password: </label>
-			<input type="password" id="pass" name="password" placeholder="Enter password"/>
-			<input type="submit" value="Create"/>
-		</form>
-		<br><br> <a href="index.php"> Login</a>
+	<body class="body create">
+		<header class="create">
+			<p class="Welcome"> Create an account</p>
+		</header>
+
+
+		<main>
+			<div class="logins">
+				<form name="create" id="myForm" method="POST">
+					<label for="username">Username: </label>
+					<input type="username" id="username" name="username" placeholder="Enter Username" autocomplete="off"/>
+					<label for="pass">Password: </label>
+					<input type="password" id="pass" name="password" placeholder="Enter password"/>
+					<input type="submit" value="Create"/>
+				</form>
+			</div>
+			<div class="login_button"><br> <a href="index.php"> Login</a><br></div>
+
+		</main>
+
 	</body>
 </html>
 <?php 

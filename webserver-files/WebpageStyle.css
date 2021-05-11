@@ -282,8 +282,43 @@ main .container .row{
     min-height: 4em;
 }
 
+/*create*/
+body.body.create{
+    width: 98%;
+}
 
-
+html.create{
+    width: 100%;
+}
+header.create{
+    margin-bottom: 1%!important;
+}
+.create main{
+    background: white;
+    padding:1%;
+    box-shadow: 5px 5px 0 slategray;
+    text-align: center;
+    margin-bottom: 1%;
+}
+.create main a{
+    text-decoration: none;
+    color:white;
+    background: #065D46;
+    padding: 1%;
+    font-weight: bold;
+}
+.create main .logins{
+    padding: 1% 1% 0;
+    margin-bottom: 1%;
+    font-size: 125%;
+}
+.create main .login_button{
+    margin-bottom: 1%;
+}
+.create header h2{
+    font-weight: bold;
+    text-align: center;
+}
 /* misc */
 
 .misc main.body{
@@ -354,9 +389,29 @@ main .container .row{
     nav ul li ul li{
         width: 96% !important;
     }
-    .Account main ul{
+    .Account main ul {
         margin: 0 auto 5%;
     }
+    body.body.create{
+        width: 96%;
+        margin: 0 2%;
+
+    }
+    .create main {
+        padding:4%;
+    }
+    .create main input{
+        margin-top:2%;
+    }
+    .create main form{
+        margin-bottom: 4%;
+    }
+    .create main a{
+
+        padding: 3%;
+        font-weight: bold;
+    }
+
 }
 /*Landscape*/
 @media only screen and (max-width: 767px) and (min-width: 480px){
@@ -420,5 +475,13 @@ main .container .row{
     }
     .Account main ul li{
         margin-right: 5%;
+    }
+    body.body.create{
+        width: 96%;
+        margin: 0 2%;
+
+    }
+    .create main label.potato{
+        position:relative; left:-360px; top:35px;
     }
 }
