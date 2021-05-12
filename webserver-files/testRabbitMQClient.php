@@ -337,3 +337,21 @@ function amqpChangePassword($username, $password, $change)
   $response = $client->send_request($request);
 }
 
+function amqpGetWins($username)
+{
+  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+  if (isset($argv[1]))
+  {
+    $msg = $argv[1];
+  }
+  else
+  {
+    $msg = "Getting wins for $username";
+  }
+  $request = array();
+  $request['type'] = "get-wins;
+  $request['username'] = $username;
+  $request['message'] = $msg;
+  $response = $client->send_request($request);
+}
+
