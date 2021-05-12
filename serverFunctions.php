@@ -6,14 +6,17 @@ function dbConnect()
 {
   $mydb = new mysqli('25.13.229.207','tim2','potato','weatherPong');
 
-  if ($mydb->errno != 0)
+  if (!($mydb->errno != 0))
   {
-        echo "failed to connect to database: ". $mydb->error . PHP_EOL;
-        exit(0);
+        echo "successfully connected to database" . PHP_EOL;
+        return $mydb;
+  } 
+  else
+  {
+         echo "Failed to connect to database: " .$mydb->error .  PHP_EOL;
+         exit(0);
   }
 
-  echo "successfully connected to database".PHP_EOL;
-  return $mydb;
 }
 
 function doLogin($username,$password)
@@ -160,6 +163,17 @@ function getFriends($username)
   logRequest($friendsList);
   return $friendsList; 
 }
+
+function getWins($username)
+{
+	//returns the amounts of wins a user has
+	$mydb = dbConnect();
+	$targetSQL = "SELECT wins FROM users WHERE username='$username'");
+	logData($targetSQL);
+	$wins = $mydb->query($targetSQL);
+	return $wins;
+}
+
 
 function addFriend($username, $target)
 {

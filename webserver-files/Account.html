@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <html lang="en">
     <head>
@@ -92,7 +93,11 @@ session_start();
             </aside>
             <main>
                 <p> Achievements:</p> <br>
-                <p> <?php echo $killimage1; ?></p>
+                <p> <?php 
+                        echo $killimage1;
+                        $wins = getWins($username);
+                        if(
+		     ?></p>
                 <ul>
                     <li><img id="kill" src="Images/Kills/kill_off.png" alt="kill"> </li>
                     <li><img id="kill2"  src="Images/Kills/kill2_off.png" alt="kill2"></li>

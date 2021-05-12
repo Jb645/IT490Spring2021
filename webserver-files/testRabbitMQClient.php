@@ -47,6 +47,7 @@ function amqpCreateAccount($username, $password)
   return $response;
 }
 
+
 function amqpLeaderboard()
 {
   $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
@@ -158,6 +159,8 @@ function amqpFriendslist($username)
   echo "\n\n";
   return $response;
 }
+
+
 
 function amqpAddFriend($username, $target)
 {
