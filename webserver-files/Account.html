@@ -95,9 +95,45 @@ session_start();
                 <p> Achievements:</p> <br>
                 <p> <?php 
                         echo $killimage1;
+                        $achievement1 = 1;
+                        $achievement2 = 5;
+                        $achievement3 = 10;
+                        $achievement4 = 20;
+                        $achievement5 = 1000;
                         $wins = getWins($username);
-                        if(
-		     ?></p>
+                        if ($achievement5 <= $wins)
+                        {
+                           echo $killimage5;
+                           echo $killimage4;
+                           echo $killimage3;
+                           echo $killimage2;
+                           echo $killimage1;
+                        }
+                        else if ($achievement4 < $wins)
+                        {
+                          echo $killimage4;
+                          echo $killimage3;
+                          echo $killimage2;
+                          echo $killimage1;
+                        }
+                        else if ($achievement3 < $wins)
+                        {
+                         echo $killimage3;
+                         echo $killimage2;
+                         echo $killimage1;
+                        }
+                        else if ($achievement2 < $wins)
+	                {
+                         echo $killimage2;
+                         echo $killimage1;
+                        }
+                        else if ($achievement1 < $wins)
+                        {
+                         echo $killimage2;
+                        }
+
+                  ?>
+		</p>
                 <ul>
                     <li><img id="kill" src="Images/Kills/kill_off.png" alt="kill"> </li>
                     <li><img id="kill2"  src="Images/Kills/kill2_off.png" alt="kill2"></li>

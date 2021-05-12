@@ -352,7 +352,7 @@ function amqpGetWins($username)
     $msg = "Getting wins for $username";
   }
   $request = array();
-  $request['type'] = "get-wins;
+  $request['type'] = "get-wins";
   $request['username'] = $username;
   $request['message'] = $msg;
   $response = $client->send_request($request);
