@@ -117,9 +117,21 @@ session_start();
 
 
     <script type="text/javascript">
-        var wins = 12;
-        if(wins > 10){
+        var wins = 30;
+        if(wins >= 10){
             let image = document.getElementById("kill").src = "Images/Kills/kill.png";
+        }
+        if(wins >= 20){
+            let image = document.getElementById("kill2").src = "Images/Kills/kill2.png";
+        }
+        if(wins >= 30){
+            let image = document.getElementById("kill3").src = "Images/Kills/kill3.png";
+        }
+        if(wins >= 40){
+            let image = document.getElementById("kill4").src = "Images/Kills/kill4.png";
+        }
+        if(wins >= 50){
+            let image = document.getElementById("kill4").src = "Images/Kills/kill5.png";
         }
 
     </script>
