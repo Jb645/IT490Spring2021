@@ -47,7 +47,9 @@ function requestProcessor($request)
     case "change-name":
       return;
     case "change-pass":
-      return;
+     return;
+    case "get-wins":
+     return /*getWins($request['username']*/;
   }
 
   if(isset($weather_output))
