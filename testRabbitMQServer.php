@@ -58,7 +58,8 @@ function requestProcessor($request)
      return $id = getID($request['username']);
     case "points":
      return $points = getBalance($request['username']);
-
+    case "transaction":
+     return $transaction = doTransaction($request['username'], $request['item'], $request['balance']);
   }
 
   if(isset($weather_output))

@@ -452,4 +452,27 @@ function getBalance($username)
   return $points;
 }
 
+function doTransaction($username, $item, $balance)
+{
+$mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+
+  $sql = "SELECT * FROM hats WHERE username = '$username'";
+  $myQuery = $mydb->query($sql);
+  if($myQuery)
+  {
+   logRequest($myQuery);
+  }
+  
+  $sql = "SELECT points FROM users WHERE username = '$username'";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+	  logData("$username: $row[0] -> $balance");
+  }
+  $mydb->close();
+  return true;
+
+}
 ?>
