@@ -280,6 +280,14 @@ function getSuggestion($username)
   return $userArray[$random];
 }
 
+function getHat1($id)
+{
+    $mydb = dbConnect();
+    if(!isset($mydb))
+    {logData("$username failed to connect to db"); return;}
+    
+}
+
 function getProfile($username)
 {
   /*$mydb = dbConnect();
