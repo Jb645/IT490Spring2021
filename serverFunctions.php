@@ -341,14 +341,19 @@ function getHat($username, $hatNumber)
           $hat = $row[0];
           logData("\n hat: ".$row[0]);
           
-         
+    
+    $noHat = 8;
+    $gotHat = 7;
+    
     if ($hatBOOL == 0){
         $mydb->close();
-        return false;
+	return $noHat;
+	return false;
     }
     else {
         $mydb->close();
-        return true;
+        return $gotHat;
+	return true;
     }
 
     }	  
@@ -484,7 +489,7 @@ $mydb = dbConnect();
   $itemCheck = checkHat;
   $sql = "SELECT hat FROM hats WHERE id = '$userID' AND hat = hat$item";
   $myQuery = $mydb->query($sql);
-  if((!$myQuery) && (($getHat($username, $item))==true))
+  if((!$myQuery) && (($getHat($username, $item))==8))
   {
 	  
   	logData("$username does not have hat$item");
