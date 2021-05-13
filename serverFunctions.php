@@ -24,28 +24,39 @@ function doLogin($username,$password)
     // lookup username in databas
     // check password
     $mydb = dbConnect();
-    $sql = "SELECT username FROM users WHERE username = '$username' and password = '$password'";
+    $sql = "SELECT password FROM users WHERE username = '$username'";
     $output = $mydb->query($sql);
-    
+
     logRequest($output);
+while($row = mysqli_fetch_row($output))
+    {
+	if($row[0] == $password)
+	 $result = true;
+	else
+	 $result = false;
+}  
+   $mydb->close();
+   return $result;
+/*    $usernameCheck = "";
+    $passwordCheck= "";
     while($row = mysqli_fetch_row($output))
     {
         $usernameCheck = $row[1];
-	$passwordCheck = $row[2];
-      if((strcasecmp($username, $usernameCheck)==0) && (strcmp($password, $passwordCheck == 0))){
+	$passwordCheck = $row[2];	
+    }	
+    if((strcasecmp($username, $usernameCheck)==0) && (strcmp($password, $passwordCheck == 0))){
         return true;
     }
     else
 	    return false;
-    $mydb->close();
-    //return false if not valid
+ */  //return false if not valid
 }
 
 function createAccount($username, $password)
 {
   $mydb = dbConnect();
   //Insert account info into DB 
-  $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password2', 0, 0)";
+  $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password', 0, 0)";
   if ($mydb->query($sql) == TRUE)
 	  echo "ACCOUNT CREATED";
 
