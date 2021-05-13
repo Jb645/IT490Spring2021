@@ -31,11 +31,24 @@ if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 	$friends = amqpFriendslist($username);
 	echo nl2br("\n\nCurrent Friends: \n");
 	$count = 0;
+        $friendsList = getFriends($username);
+	foreach ($friendsList as $value){
+            (if $count <= 20){
+                $output = $value . "\n";
+                echo nl2br($output);
+                $count = $count + 1;
+                }
+            }
+                
+           
+/*
+	$count = 0;
 	while($count < count($friends))
 	{
 		echo nl2br("\n" . ($count + 1) . ": $friends[$count]");
 		$count ++;
 	}
+	 */
 }
 else
 {
