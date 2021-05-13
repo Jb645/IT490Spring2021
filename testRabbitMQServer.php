@@ -50,6 +50,8 @@ function requestProcessor($request)
      return;
     case "get-wins":
      return $wins = getWins($request['username']);
+    case "balance":
+     return $balance = getBalance($request['username']);
   }
 
   if(isset($weather_output))
