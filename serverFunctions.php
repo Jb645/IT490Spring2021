@@ -336,7 +336,7 @@ function getHat($username, $hatNumber)
     $sql = "SELECT hat$hatNumber FROM hats WHERE id = '$newID'";
     $hatBOOL = $mydb->query($sql);
     $HatSearch = $mydb->query($sql);
-    while($row = mysqli_fetch_row($IDSearch))
+    while($row = mysqli_fetch_row($HatSearch))
   {
           $hat = $row[0];
           logData("\n hat: ".$row[0]);
