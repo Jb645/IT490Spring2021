@@ -30,8 +30,9 @@ function doLogin($username,$password)
     logRequest($output);
     while($row = mysqli_fetch_row($output))
     {
-       $usernameCheck = 
-    if($output == TRUE){
+        $usernameCheck = $row[1];
+	$passwordCheck = $row[2];
+      if((strcasecmp($username, $usernameCheck)==0) && (strcmp($password, $passwordCheck == 0))){
         return true;
     }
     else
