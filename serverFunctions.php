@@ -373,4 +373,10 @@ function changePass($username, $password, $change)
   return true;
 
 }
+
+function getBalance($username)
+{
+  return 100;
+}
+
 ?>
