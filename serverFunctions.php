@@ -56,17 +56,17 @@ function createAccount($username, $password)
    if($mydb->query($sql3) == TRUE)
      logData("Added $newID to scores");
   
-  $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
-   if($mydb->query($sql4) == TRUE)
-   {
-     $mydb->close();
-     logData("Added $newID to hats");
-     return true;
-   }
+  $sql4 = "INSERT INTO hats (id) VALUES ('$newID')";
+  if($mydb->query($sql4) == TRUE){
+    $mydb->close();
+    logData("Added $newID to hats");
+    return true;
+  }
+
   logData("Failed to insert");
   $mydb->close();
   return false;
- }
+}
 
 function getWeather($location)
 {
