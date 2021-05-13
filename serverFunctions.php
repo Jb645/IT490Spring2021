@@ -56,12 +56,13 @@ function createAccount($username, $password)
     
      logData("Added $id to scores");
    }
-  }
+  
   $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
   if($mydb->query($sql4) == TRUE){
     $mydb->close();
     logData("Added $id to hats");
     return true;
+  }
   }
   logData("Failed to insert");
   $mydb->close();
