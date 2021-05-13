@@ -4,7 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-$connection = new AMQPStreamConnection('25.15.226.124', 5672, 'test', 'test',"Prod");
+$connection = new AMQPStreamConnection('25.14.14.158', 5672, 'test', 'test',"QA&Prod");
 $channel = $connection->channel();
 
 $channel->queue_declare('Weather', false, false, false, false);
