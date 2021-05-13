@@ -487,8 +487,15 @@ $mydb = dbConnect();
   {
 	  
   	logData("$username does not have hat$item");
+<<<<<<< HEAD
 	$sql2 = "UPDATE hats SET hat$item = 1 WHERE id=$userID";
 	$query = $mydb->query($sql2);
+=======
+  	$sql = "UPDATE hats SET hat = true WHERE id = '$userID' AND hat = hat$item";
+  	$myQuery=$mydb->query($sql);
+	if($myQuery)
+	  logData("Hat updated");
+>>>>>>> f23fa21a0a1c3f7a5ae774e1e2ff9c6631a6561b
   }
   else
   {
@@ -497,6 +504,7 @@ $mydb = dbConnect();
 	return false;
   }
   
+<<<<<<< HEAD
   $sql3 = "SELECT points FROM users WHERE username = '$username'";
   $myQuery = $mydb->query($sql3);
   while($row = mysqli_fetch_row($myQuery))
@@ -504,6 +512,19 @@ $mydb = dbConnect();
         $sql4 = "UPDATE users SET points=$balance WHERE id=$userID";
         $query4 = $mydb->query($sql4);
         logData("$username: $row[0] -> $balance");
+=======
+  $sql = "UPDATE users SET points = '$balance' FROM users WHERE username = '$username'";
+  $myQuery = $mydb->query($sql);
+  if($myQuery)
+  {
+	logData("Updating balance for $username, new balance = $balance");
+  }
+  else
+  {
+	  logData("Could not update balance for $username");
+	  $mydb->close();
+	  return false;
+>>>>>>> f23fa21a0a1c3f7a5ae774e1e2ff9c6631a6561b
   }
   $mydb->close();
   return true;
