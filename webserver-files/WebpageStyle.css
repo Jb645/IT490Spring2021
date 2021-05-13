@@ -413,6 +413,12 @@ header.create{
     }
 
 }
+
+main.trueMain{
+    margin: 1%;
+    background:white;
+    color:black;
+}
 /*Landscape*/
 @media only screen and (max-width: 767px) and (min-width: 480px){
 
