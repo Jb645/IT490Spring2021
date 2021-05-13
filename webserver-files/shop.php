@@ -76,8 +76,8 @@ session_start();
                         require("testRabbitMQClient.php");
 
 
-                        if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
-                        
+                        if(isset($_SESSION['login']) && !empty($_SESSION['login']))
+                        {
                             //echo "Session is good.\n";
                         }
                         else
@@ -86,8 +86,10 @@ session_start();
                         }
 
                          $username = $_SESSION['login'];
-
-                         $balance = amqpBalance($username);
+ 			  if(!isset($_SESSION['balance']))
+                           $_SESSION['balance'] = amqpBalance($username);
+                      
+                         $balance = $_SESSION['balance'];
                          
                          if ($balance == null)
                            amqpLog("$username failed to get balance");
@@ -96,36 +98,42 @@ session_start();
                           // amqpLog("$username successfully retrieved balance");
                            echo "Your balance is: $balance";
                          }
-
-                        if(isset($_POST["hat"]) && !empty($_POST["hat"]))
+                        if(isset($_POST["hat"]) && !empty($_POST["hat"]) && isset($_SESSION['balance']) && !empty($_SESSION['balance']))
                         {
                            $hat =  $_POST["hat"];
+                           $balance = $_SESSION['balance'];
+                           unset($_SESSION['balance']);
 
                            switch($hat)
                            {
                              case 'hat1':
                              {
                             $price = 10;
+                            $hat = 1;
                             break;
                              }
                              case 'hat2':
                              {
                             $price = 25;
+                            $hat = 2;
                             break;
                              }
                              case 'hat3':
                              {
                             $price = 50;
+                            $hat = 3;
                             break;
                              }
                              case 'hat4':
                              {
                             $price = 100;
+                            $hat = 4;
                             break;
                              }
                              case 'hat5':
                              {
                             $price = 300;
+                            $hat = 5;
                             break;
                              }
                            }
@@ -137,9 +145,11 @@ session_start();
                            else
                            {
 				   
-                            	   
-                            //amqpTransaction($username, $_POST['shop']);
-                            echo nl2br("\n\n You purchased: $hat");
+                     	     $balance = $balance - $price;
+                            if(amqpTransaction($username, $hat, $balance))
+                            echo nl2br("\n\n You purchased: $hat, remaing balance is: $balance");
+          		     else
+          		     	echo nl2br("\n\n Purchase failed"); 
                            }
                         }
                         ?>
