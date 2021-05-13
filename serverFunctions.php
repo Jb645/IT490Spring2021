@@ -53,9 +53,15 @@ function createAccount($username, $password)
   }
     $sql3 = "INSERT INTO scores (id, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$newID', 0, 0, 'clear sky', 'clear sky')";
    if($mydb->query($sql3) == TRUE){
-    $mydb->close();
-    return true; //Return true on success 
+    
+     logData("Added $id to scores");
    }
+  }
+  $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
+  if($mydb->query($sql4) == TRUE){
+    $mydb->close();
+    logData("Added $id to hats");
+    return true;
   }
   logData("Failed to insert");
   $mydb->close();
