@@ -1,2 +1,4 @@
-/home/tim/git/IT490Spring2021/delpoyment/dev/package.tar
-
+/home/tim/git/IT490Spring2021/delpoyment/dev/package.tar.gz
+/home/tim/git/IT490Spring2021/delpoyment/dev/distribution.sh
+/home/tim/git/IT490Spring2021/delpoyment/dev/avoid.txt
+/home/tim/git/IT490Spring2021/delpoyment/dev/deploy.conf
