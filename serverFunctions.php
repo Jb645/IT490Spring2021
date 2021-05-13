@@ -336,22 +336,26 @@ function getHat($username, $hatNumber)
     $sql = "SELECT hat$hatNumber FROM hats WHERE id = '$newID'";
     $hatBOOL = $mydb->query($sql);
     $HatSearch = $mydb->query($sql);
-    while($row = mysqli_fetch_row($IDSearch))
-  {
+    while($row = mysqli_fetch_row($HatSearch))
+   {
           $hat = $row[0];
           logData("\n hat: ".$row[0]);
-          
-         
-    if ($hatBOOL == 0){
-        $mydb->close();
-        return false;
+    }       
+        logRequest($hatBOOL); 
+    while($row = mysqli_fetch_row($hatBOOL))	    
+    {    
+	if ($row[0] == 0){
+	{
+	  $mydb->close();
+          return false;}
+    	}
+	else 
+	{
+          $mydb->close();
+          return true;
+    	}
     }
-    else {
-        $mydb->close();
-        return true;
-    }
-
-    }	  
+   	  
 }
 
 function getProfile($username)
@@ -481,10 +485,9 @@ $mydb = dbConnect();
   {logData("Failed to connect to db"); exit();}
   
   $userID=getID($username);
-  $itemCheck = checkHat;
   $sql = "SELECT hat FROM hats WHERE id = '$userID' AND hat = hat$item";
   $myQuery = $mydb->query($sql);
-  if((!$myQuery) && (($getHat($username, $item))==true))
+  if((!$myQuery) && ((getHat($username, $item))==true))
   {
 	  
   	logData("$username does not have hat$item");
