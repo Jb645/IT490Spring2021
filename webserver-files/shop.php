@@ -170,7 +170,7 @@ session_start();
 <body>
 <br><br>
 <footer>
-<a href = "loggedin.php"> Back</a> <br>
+<a href = "loggedIn.php"> Back</a> <br>
 </footer>
 </body>
 </html>

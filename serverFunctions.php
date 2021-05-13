@@ -337,25 +337,26 @@ function getHat($username, $hatNumber)
     $hatBOOL = $mydb->query($sql);
     $HatSearch = $mydb->query($sql);
     while($row = mysqli_fetch_row($HatSearch))
-   {
+  {
           $hat = $row[0];
           logData("\n hat: ".$row[0]);
-    }       
-        logRequest($hatBOOL); 
-    while($row = mysqli_fetch_row($hatBOOL))	    
-    {    
-	if ($row[0] == 0){
-	{
-	  $mydb->close();
-          return false;}
-    	}
-	else 
-	{
-          $mydb->close();
-          return true;
-    	}
+          
+    
+    $noHat = 8;
+    $gotHat = 7;
+    } 
+    while($row = mysqli_fetch_row($hatBOOL))
+    {
+    if ($row[0] == 0)
+	    {
+        $mydb->close();
+	return $noHat;
     }
-   	  
+    else {
+        $mydb->close();
+        return $gotHat;
+    }
+    }	  
 }
 
 function getProfile($username)
@@ -487,7 +488,7 @@ $mydb = dbConnect();
   $userID=getID($username);
   $sql = "SELECT hat FROM hats WHERE id = '$userID' AND hat = hat$item";
   $myQuery = $mydb->query($sql);
-  if((!$myQuery) && ((getHat($username, $item))==true))
+  if((!$myQuery) && ((getHat($username, $item))==8))
   {
 	  
   	logData("$username does not have hat$item");
