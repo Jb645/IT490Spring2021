@@ -481,9 +481,10 @@ $mydb = dbConnect();
   {logData("Failed to connect to db"); exit();}
   
   $userID=getID($username);
+  $itemCheck = checkHat
   $sql = "SELECT hat FROM hats WHERE id = '$userID' AND hat = hat$item";
   $myQuery = $mydb->query($sql);
-  if(!$myQuery)
+  if((!$myQuery) && (($getHat($username, $item))==true))
   {
 	  
   	logData("$username does not have hat$item");
