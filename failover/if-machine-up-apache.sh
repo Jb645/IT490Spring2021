@@ -45,7 +45,7 @@ machine_status
 
 if [[ $STATUS == 1 ]]
 then
-	echo "Machine($MACHINEIP) is up"
+	echo "Machine($MACHINEIP) is up, sycing files";
 	exit
 else
 	# For server logs
