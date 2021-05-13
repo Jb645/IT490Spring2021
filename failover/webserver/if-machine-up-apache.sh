@@ -41,8 +41,8 @@ then
 	exit
 fi
 
-# machine_status
-STATUS=1
+machine_status
+
 if [[ $STATUS == 1 ]]
 then
 
