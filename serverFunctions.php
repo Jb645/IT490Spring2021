@@ -389,7 +389,7 @@ function changeName($username, $password, $change)
   {
      if ($row[0] == $username)	 
      {
-     $sql = "UPDATE users SET username = $change WHERE id = $userID"
+     $sql = "UPDATE users SET username = $change WHERE id = $userID";
      $myQuery = $mydb->query($sql);
      if ($myQuery == false)
      {
@@ -417,7 +417,7 @@ function changePass($username, $password, $change)
   {
      if ($row[0] == $password)
      {
-     $sql = "UPDATE users SET password = $change WHERE id = $userID"
+     $sql = "UPDATE users SET password = $change WHERE id = $userID";
      $myQuery = $mydb->query($sql);
      if ($myQuery == false)
      {
@@ -479,12 +479,21 @@ function doTransaction($username, $item, $balance)
 $mydb = dbConnect();
   if(!isset($mydb))
   {logData("Failed to connect to db"); exit();}
-
-  $sql = "SELECT * FROM hats WHERE username = '$username'";
+  
+  $userID=getID($username);
+  $sql = "SELECT hat FROM hats WHERE id = '$userID' AND hat = hat$item";
   $myQuery = $mydb->query($sql);
-  if($myQuery)
+  if(!$myQuery)
   {
-   logRequest($myQuery);
+	  
+  	logData("$username does not have hat$item");
+  //	$sql = " hat FROM hats WHERE id = '$userID' AND hat = hat$item";
+  }
+  else
+  {
+	logData("$username owns hat$item");
+  	$mydb->close();
+	return false;
   }
   
   $sql = "SELECT points FROM users WHERE username = '$username'";
