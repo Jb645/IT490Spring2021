@@ -303,15 +303,15 @@ function getSuggestion($username)
   return $userArray[$random];
 }
 
-function getHat1($username)
+function getHat($username, $hatNumber)
 {
     $mydb = dbConnect();
     $newID = getID($username);
     if(!isset($mydb))
     {logData("$username failed to connect to db"); return;}
-    $sql = "SELECT hat1 FROM hats WHERE id = '$newID'";
+    $sql = "SELECT hat$hatNumber FROM hats WHERE id = '$newID'";
     $hatBOOL = $mydb->query($sql);
-    if ($hatBOOL != 1){
+    if ($hatBOOL == 0){
         $mydb->close();
         return false;
     }
@@ -321,83 +321,6 @@ function getHat1($username)
     }
     
 }
-
-function getHat2($username)
-{
-    $mydb = dbConnect();
-    $newID = getID($username);
-    if(!isset($mydb))
-    {logData("$username failed to connect to db"); return;}
-    $sql = "SELECT hat2 FROM hats WHERE id = '$newID'";
-    $hatBOOL = $mydb->query($sql);
-    if ($hatBOOL != 1){
-        $mydb->close();
-        return false;
-    }
-    else {
-        $mydb->close();
-        return true;
-    }
-    
-}
-
-function getHat3($username)
-{
-    $mydb = dbConnect();
-    $newID = getID($username);
-    if(!isset($mydb))
-    {logData("$username failed to connect to db"); return;}
-    $sql = "SELECT hat3 FROM hats WHERE id = '$newID'";
-    $hatBOOL = $mydb->query($sql);
-    if ($hatBOOL != 1){
-        $mydb->close();
-        return false;
-    }
-    else {
-        $mydb->close();
-        return true;
-    }
-    
-}
-
-function getHat4($username)
-{
-    $mydb = dbConnect();
-    $newID = getID($username);
-    if(!isset($mydb))
-    {logData("$username failed to connect to db"); return;}
-    $sql = "SELECT hat4 FROM hats WHERE id = '$newID'";
-    $hatBOOL = $mydb->query($sql);
-    if ($hatBOOL != 1){
-        $mydb->close();
-        return false;
-    }
-    else {
-        $mydb->close();
-        return true;
-    }
-    
-}
-
-function getHat5($username)
-{
-    $mydb = dbConnect();
-    $newID = getID($username);
-    if(!isset($mydb))
-    {logData("$username failed to connect to db"); return;}
-    $sql = "SELECT hat5 FROM hats WHERE id = '$newID'";
-    $hatBOOL = $mydb->query($sql);
-    if ($hatBOOL != 1){
-        $mydb->close();
-        return false;
-    }
-    else {
-        $mydb->close();
-        return true;
-    }
-    
-}
-
 
 function getProfile($username)
 {
