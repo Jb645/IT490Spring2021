@@ -19,18 +19,20 @@ function dbConnect()
 
 }
 
-function doLogin($username,$password)
+function doLogin($username, $password)
 {
     // lookup username in databas
     // check password
     $mydb = dbConnect();
     $sql = "SELECT password FROM users WHERE username = '$username'";
     $output = $mydb->query($sql);
-
+    logData("Password: $password");
     logRequest($output);
+    $result = false;    
 while($row = mysqli_fetch_row($output))
-    {
-	if($row[0] == $password)
+{		
+	logData("$row[0]\n$password");
+	if(hash_equals($row[0], $password))
 	 $result = true;
 	else
 	 $result = false;

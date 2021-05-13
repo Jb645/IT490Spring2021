@@ -46,9 +46,9 @@
                     echo "Password cannot contain spaces";
                     exit();
                 }
-                $password = $password.$salt;
-                $password = password_hash($password, PASSWORD_BCRYPT);
-
+                //$password = $password.$salt;
+                //$password = password_hash($password, PASSWORD_BCRYPT);
+		$password = crypt($password, $salt);
                 require("testRabbitMQClient.php");
                 try {
                     $response = amqpCreateAccount($username, $password);
