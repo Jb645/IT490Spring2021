@@ -187,17 +187,6 @@ function getWins($username)
 	return $wins;
 }
 
-function getBalance($username)
-{
-        //returns the amounts of points a user has
-        $mydb = dbConnect();
-        $targetSQL = "SELECT points FROM users WHERE username='$username'";
-        logData($targetSQL);
-        $points = $mydb->query($targetSQL);
-        return $points;
-}
-
-
 function addFriend($username, $target)
 {
   //SQL insert target into username's friend list
@@ -400,6 +389,24 @@ function changePass($username, $password, $change)
    */
   return true;
 
+}
+
+function getBalance($username)
+{
+  $mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  
+  $sql = "SELECT points FROM users WHERE username = '$username'";
+  $myQuery = $mydb->query($sql);
+  $points = 0;
+  while($row = mysqli_fetch_row($myQuery))
+  {	  
+     logData("$username has $row[0] points");
+     $points = $row[0];
+  }
+  $mydb->close();
+  return $points;
 }
 
 ?>

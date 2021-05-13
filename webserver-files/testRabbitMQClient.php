@@ -276,9 +276,10 @@ function amqpBalance($username)
   }
   $request = array();
   $request['type'] = "balance";
-  $request['username'] = $user;
+  $request['username'] = $username;
   $request['message'] = $msg;
   $response = $client->send_request($request);
+  return $response;
 }
 
 function amqpTransaction($username, $item)
