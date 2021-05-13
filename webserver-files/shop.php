@@ -29,7 +29,7 @@ session_start();
 			<li><a href = "chat.php"> Chat </a></li>
 			<li><a href="#"> Profile </a>
 				<ul>
-					<li><a href="#">Achievements</a></li>
+
 					<li><a href="Account.html">Account</a></li>
 					<li><a href="modify-friends.html">Add Friends</a></li>
 				</ul>
@@ -68,6 +68,80 @@ session_start();
 								<label for="hat5"><img src="Images/shopHats/bestshop.gif" alt="upgraded Hat Hat" height="100%"></label>
 						</div>
 					</div>
+					<main class="trueMain"> <?php
+                        ini_set('display_errors',1);
+                        ini_set('display_startup_errors', 1);
+                        error_reporting(E_ALL ^ E_DEPRECATED);
+
+                        require("testRabbitMQClient.php");
+
+
+                        if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
+                        {
+                            //echo "Session is good.\n";
+                        }
+                        else
+                        {
+                            header("Location: index.php");
+                        }
+
+                         $username = $_SESSION['login'];
+
+                         //$balance = amqpBalance($username);
+                         $balance = 100;
+                         if ($balance == null)
+                           amqpLog("$username failed to get balance");
+                         else
+                         {
+                          // amqpLog("$username successfully retrieved balance");
+                           echo "Your balance is: $balance";
+                         }
+
+                        if(isset($_POST["hat"]) && !empty($_POST["hat"]))
+                        {
+                           $hat =  $_POST["hat"];
+
+                           switch($hat)
+                           {
+                             case 'hat1':
+                             {
+                            $price = 10;
+                            break;
+                             }
+                             case 'hat2':
+                             {
+                            $price = 25;
+                            break;
+                             }
+                             case 'hat3':
+                             {
+                            $price = 50;
+                            break;
+                             }
+                             case 'hat4':
+                             {
+                            $price = 100;
+                            break;
+                             }
+                             case 'hat5':
+                             {
+                            $price = 300;
+                            break;
+                             }
+                           }
+
+                           if($balance - $price < 0)
+                           {
+                            echo nl2br("\n\n You can't afford that");
+                           }
+                           else
+                           {
+                            //amqpTransaction($username, $_POST['shop']);
+                            echo nl2br("\n\n You purchased: $hat");
+                           }
+                        }
+                        ?>
+                    </main>
 				<input class="button" type="submit" value="Submit">
 				</form>
 
@@ -79,79 +153,7 @@ session_start();
 			integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
 			crossorigin="anonymous"></script>	</body>
 </html>
-<?php
-ini_set('display_errors',1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL ^ E_DEPRECATED);
 
-require("testRabbitMQClient.php");
-
-
-if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
-{
-	//echo "Session is good.\n";
-}
-else
-{
-	header("Location: index.php");
-}
-
- $username = $_SESSION['login'];
-
- //$balance = amqpBalance($username);
- $balance = 100;
- if ($balance == null)
-   amqpLog("$username failed to get balance");
- else
- {
-  // amqpLog("$username successfully retrieved balance");
-   echo "Your balance is: $balance";
- }
-
-if(isset($_POST["hat"]) && !empty($_POST["hat"]))
-{
-   $hat =  $_POST["hat"];
-
-   switch($hat)
-   {
-     case 'hat1':
-     {
-	$price = 10;
-	break;
-     }
-     case 'hat2':
-     {
-	$price = 25;
-	break;
-     }
-     case 'hat3':
-     {
-	$price = 50;
-	break;
-     }
-     case 'hat4':
-     {
-	$price = 100;
-	break;
-     }
-     case 'hat5':
-     {
-	$price = 300;
-	break;
-     }
-   }
-
-   if($balance - $price < 0)
-   {
-	echo nl2br("\n\n You can't afford that");
-   }
-   else
-   {
-   	//amqpTransaction($username, $_POST['shop']);
-	echo nl2br("\n\n You purchased: $hat");
-   }
-}
-?>
 <html>
 <body>
 <br><br>
