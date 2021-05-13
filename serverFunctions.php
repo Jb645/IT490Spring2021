@@ -378,36 +378,62 @@ function getProfile($username)
 
 function changeName($username, $password, $change)
 {
-  /*$mydb = dbConnect();
+  $mydb = dbConnect();
   if(!isset($mydb))
   {logData("Failed to connect to db"); exit();}
-  $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
+  $userID = getID($username);
+  
+  $sql = "SELECT username FROM users WHERE id = $userID AND password = $password";
   $myQuery = $mydb->query($sql);
   while($row = mysqli_fetch_row($myQuery))
   {
      if ($row[0] == $username)	 
      {
+     $sql = "UPDATE users SET username = $change WHERE id = $userID"
+     $myQuery = $mydb->query($sql);
+     if ($myQuery == false)
+     {
+        $mydb->close();
+        return false;
+     }
+     else{
+
 	$mydb->close();
-        return false;	  
+        return true;	  
      }
   }
-  $sql = "UPDATE users SET username = $username WHERE username = $username"
-  $myQuery = $mydb->query($sql);
-  if ($myQuery == false)
-  {
-    $mydb->close();
-    return false;
   }
-
-  $mydb->close();
-   */
-  return true;
-
 }
-
 function changePass($username, $password, $change)
 {
-  /*$mydb = dbConnect();
+  $mydb = dbConnect();
+  if(!isset($mydb))
+  {logData("Failed to connect to db"); exit();}
+  $userID = getID($username);
+
+  $sql = "SELECT password FROM users WHERE id = $userID AND password = $password";
+  $myQuery = $mydb->query($sql);
+  while($row = mysqli_fetch_row($myQuery))
+  {
+     if ($row[0] == $password)
+     {
+     $sql = "UPDATE users SET password = $change WHERE id = $userID"
+     $myQuery = $mydb->query($sql);
+     if ($myQuery == false)
+     {
+        $mydb->close();
+        return false;
+     }
+     else{
+
+        $mydb->close();
+        return true;
+     }
+     }
+  }
+}
+
+ /*$mydb = dbConnect();
   if(!isset($mydb))
   {logData("Failed to connect to db"); exit();}
   $sql = "SELECT username FROM users WHERE username = '$username' AND password = $password";
@@ -430,10 +456,6 @@ function changePass($username, $password, $change)
 
   $mydb->close();
    */
-  return true;
-
-}
-
 function getBalance($username)
 {
   $mydb = dbConnect();
