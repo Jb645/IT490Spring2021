@@ -487,7 +487,10 @@ $mydb = dbConnect();
   {
 	  
   	logData("$username does not have hat$item");
-  //	$sql = " hat FROM hats WHERE id = '$userID' AND hat = hat$item";
+  	$sql = "UPDATE hats SET hat = true WHERE id = '$userID' AND hat = hat$item";
+  	$myQuery=$mydb->query($sql);
+	if($myQuery)
+	  logData("Hat updated");
   }
   else
   {
@@ -496,11 +499,17 @@ $mydb = dbConnect();
 	return false;
   }
   
-  $sql = "SELECT points FROM users WHERE username = '$username'";
+  $sql = "UPDATE users SET points = '$balance' FROM users WHERE username = '$username'";
   $myQuery = $mydb->query($sql);
-  while($row = mysqli_fetch_row($myQuery))
+  if($myQuery)
   {
-	  logData("$username: $row[0] -> $balance");
+	logData("Updating balance for $username, new balance = $balance");
+  }
+  else
+  {
+	  logData("Could not update balance for $username");
+	  $mydb->close();
+	  return false;
   }
   $mydb->close();
   return true;
