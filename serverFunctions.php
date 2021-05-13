@@ -36,7 +36,7 @@ while($row = mysqli_fetch_row($output))
 	 $result = true;
 	else
 	 $result = false;
-}  
+     }  
    $mydb->close();
    return $result;
 /*    $usernameCheck = "";
@@ -191,9 +191,18 @@ function getID($username)
 {
         $mydb = dbConnect();
         $sql="SELECT id FROM users WHERE username='$username'";
-	$newID = $mydb->query($sql);
-	return $newID;
-      
+	$IDSearch = $mydb->query($sql);
+
+	while($row = mysqli_fetch_row($IDSearch))
+  {
+          $newID = $row[0];
+	  logData("\n user id: ".$row[0]);
+	  $mydb->close();
+          return $newID;
+
+   }
+   return false;
+	      
 }
 function getWins($username)
 {
@@ -202,7 +211,15 @@ function getWins($username)
 	$targetSQL = "SELECT wins FROM users WHERE username='$username'";
 	logData($targetSQL);
 	$wins = $mydb->query($targetSQL);
-	return $wins;
+        while($row = mysqli_fetch_row($wins))
+  {
+          $returnedWins = $row[0];
+          logData("\n wins: ".$row[0]);
+          $mydb->close();
+          return $returnedWins;
+
+  }
+	return false;
 }
 
 function addFriend($username, $target)
@@ -318,6 +335,13 @@ function getHat($username, $hatNumber)
     {logData("$username failed to connect to db"); return;}
     $sql = "SELECT hat$hatNumber FROM hats WHERE id = '$newID'";
     $hatBOOL = $mydb->query($sql);
+    $HatSearch = $mydb->query($sql);
+    while($row = mysqli_fetch_row($IDSearch))
+  {
+          $hat = $row[0];
+          logData("\n hat: ".$row[0]);
+          
+         
     if ($hatBOOL == 0){
         $mydb->close();
         return false;
@@ -326,7 +350,8 @@ function getHat($username, $hatNumber)
         $mydb->close();
         return true;
     }
-    
+
+    }	  
 }
 
 function getProfile($username)
