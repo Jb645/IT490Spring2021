@@ -54,13 +54,13 @@ function createAccount($username, $password)
     $sql3 = "INSERT INTO scores (id, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$newID', 0, 0, 'clear sky', 'clear sky')";
    if($mydb->query($sql3) == TRUE){
     
-     logData("Added $id to scores");
+     logData("Added $newID to scores");
    }
   
   $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
   if($mydb->query($sql4) == TRUE){
     $mydb->close();
-    logData("Added $id to hats");
+    logData("Added $newID to hats");
     return true;
   }
   }
