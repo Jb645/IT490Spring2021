@@ -57,7 +57,7 @@ function createAccount($username, $password)
      logData("Added $newID to scores");
    }
   
-  $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
+  $sql4 = "INSERT INTO hats (id) VALUES ('$newID')";
   if($mydb->query($sql4) == TRUE){
     $mydb->close();
     logData("Added $newID to hats");
