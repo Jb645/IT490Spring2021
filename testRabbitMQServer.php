@@ -52,6 +52,21 @@ function requestProcessor($request)
      return $wins = getWins($request['username']);
     case "balance":
      return $balance = getBalance($request['username']);
+    case "hats1":
+     return $hats1 = getHats1($request['username']);
+    case "hats2":
+     return $hats2 = getHats2($request['username']);
+    case "hats3":
+     return $hats3 = getHats3($request['username']);
+    case "hats4":
+     return $hats4 = getHats4($request['username']);
+    case "hats5":
+     return $hats5 = getHats5($request['username']);
+    case "id":
+     return $id = getID($request['username']);
+    case "points":
+     return $points = getBalance($request['username']);
+
   }
 
   if(isset($weather_output))

@@ -87,8 +87,8 @@ session_start();
 
                          $username = $_SESSION['login'];
 
-                         //$balance = amqpBalance($username);
-                         $balance = 100;
+                         $balance = amqpBalance($username);
+                         
                          if ($balance == null)
                            amqpLog("$username failed to get balance");
                          else

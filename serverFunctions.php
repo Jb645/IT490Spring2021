@@ -39,8 +39,7 @@ function doLogin($username,$password)
 function createAccount($username, $password)
 {
   $mydb = dbConnect();
-  //Insert account info into DB
-  $password2 = "6@9a" . $password;
+  //Insert account info into DB 
   $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password2', 0, 0)";
   if ($mydb->query($sql) == TRUE){
     echo "ACCOUNT CREATED";
@@ -171,6 +170,14 @@ function getFriends($username)
   return $friendsList; 
 }
 
+function getID($username)
+{
+        $mydb = dbConnect();
+        $sql="SELECT id FROM users WHERE username='$username'";
+	$newID = $mydb->query($sql);
+	return $newID;
+      
+}
 function getWins($username)
 {
 	//returns the amounts of wins a user has
@@ -179,6 +186,16 @@ function getWins($username)
 	logData($targetSQL);
 	$wins = $mydb->query($targetSQL);
 	return $wins;
+}
+
+function getBalance($username)
+{
+        //returns the amounts of points a user has
+        $mydb = dbConnect();
+        $targetSQL = "SELECT points FROM users WHERE username='$username'";
+        logData($targetSQL);
+        $points = $mydb->query($targetSQL);
+        return $points;
 }
 
 
@@ -287,13 +304,101 @@ function getSuggestion($username)
   return $userArray[$random];
 }
 
-function getHat1($id)
+function getHat1($username)
 {
     $mydb = dbConnect();
+    $newID = getID($username);
     if(!isset($mydb))
     {logData("$username failed to connect to db"); return;}
+    $sql = "SELECT hat1 FROM hats WHERE id = '$newID'";
+    $hatBOOL = $mydb->query($sql);
+    if ($hatBOOL != 1){
+        $mydb->close();
+        return false;
+    }
+    else {
+        $mydb->close();
+        return true;
+    }
     
 }
+
+function getHat2($username)
+{
+    $mydb = dbConnect();
+    $newID = getID($username);
+    if(!isset($mydb))
+    {logData("$username failed to connect to db"); return;}
+    $sql = "SELECT hat2 FROM hats WHERE id = '$newID'";
+    $hatBOOL = $mydb->query($sql);
+    if ($hatBOOL != 1){
+        $mydb->close();
+        return false;
+    }
+    else {
+        $mydb->close();
+        return true;
+    }
+    
+}
+
+function getHat3($username)
+{
+    $mydb = dbConnect();
+    $newID = getID($username);
+    if(!isset($mydb))
+    {logData("$username failed to connect to db"); return;}
+    $sql = "SELECT hat3 FROM hats WHERE id = '$newID'";
+    $hatBOOL = $mydb->query($sql);
+    if ($hatBOOL != 1){
+        $mydb->close();
+        return false;
+    }
+    else {
+        $mydb->close();
+        return true;
+    }
+    
+}
+
+function getHat4($username)
+{
+    $mydb = dbConnect();
+    $newID = getID($username);
+    if(!isset($mydb))
+    {logData("$username failed to connect to db"); return;}
+    $sql = "SELECT hat4 FROM hats WHERE id = '$newID'";
+    $hatBOOL = $mydb->query($sql);
+    if ($hatBOOL != 1){
+        $mydb->close();
+        return false;
+    }
+    else {
+        $mydb->close();
+        return true;
+    }
+    
+}
+
+function getHat5($username)
+{
+    $mydb = dbConnect();
+    $newID = getID($username);
+    if(!isset($mydb))
+    {logData("$username failed to connect to db"); return;}
+    $sql = "SELECT hat5 FROM hats WHERE id = '$newID'";
+    $hatBOOL = $mydb->query($sql);
+    if ($hatBOOL != 1){
+        $mydb->close();
+        return false;
+    }
+    else {
+        $mydb->close();
+        return true;
+    }
+    
+}
+
 
 function getProfile($username)
 {
@@ -373,11 +478,6 @@ function changePass($username, $password, $change)
    */
   return true;
 
-}
-
-function getBalance($username)
-{
-  return 100;
 }
 
 ?>
