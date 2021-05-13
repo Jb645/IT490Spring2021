@@ -26,13 +26,17 @@ function doLogin($username,$password)
     $mydb = dbConnect();
     $sql = "SELECT username FROM users WHERE username = '$username' and password = '$password'";
     $output = $mydb->query($sql);
-    $mydb->close();
+    
     logRequest($output);
+    while($row = mysqli_fetch_row($output))
+    {
+       $usernameCheck = 
     if($output == TRUE){
         return true;
     }
     else
 	    return false;
+    $mydb->close();
     //return false if not valid
 }
 
