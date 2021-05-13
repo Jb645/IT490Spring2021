@@ -77,7 +77,7 @@ session_start();
 
 
                         if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
-                        {
+                        
                             //echo "Session is good.\n";
                         }
                         else
@@ -136,6 +136,8 @@ session_start();
                            }
                            else
                            {
+				   
+                            	   
                             //amqpTransaction($username, $_POST['shop']);
                             echo nl2br("\n\n You purchased: $hat");
                            }
