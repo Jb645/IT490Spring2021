@@ -86,7 +86,7 @@ session_start();
                         }
 
                          $username = $_SESSION['login'];
- 			  if(!isset($_SESSION['balance']))
+			if(!isset($_SESSION['balance']) && empty($_SESSION['balance']))
                            $_SESSION['balance'] = amqpBalance($username);
                       
                          $balance = $_SESSION['balance'];
@@ -102,37 +102,36 @@ session_start();
                         {
                            $hat =  $_POST["hat"];
                            $balance = $_SESSION['balance'];
-                           unset($_SESSION['balance']);
 
                            switch($hat)
                            {
                              case 'hat1':
                              {
-                            $price = 10;
+                            $price = 30;
                             $hat = 1;
                             break;
                              }
                              case 'hat2':
                              {
-                            $price = 25;
+                            $price = 30;
                             $hat = 2;
                             break;
                              }
                              case 'hat3':
                              {
-                            $price = 50;
+                            $price = 30;
                             $hat = 3;
                             break;
                              }
                              case 'hat4':
                              {
-                            $price = 100;
+                            $price = 30;
                             $hat = 4;
                             break;
                              }
                              case 'hat5':
                              {
-                            $price = 300;
+                            $price = 100;
                             $hat = 5;
                             break;
                              }
@@ -147,7 +146,9 @@ session_start();
 				   
                      	     $balance = $balance - $price;
                             if(amqpTransaction($username, $hat, $balance))
-                            echo nl2br("\n\n You purchased: $hat, remaing balance is: $balance");
+                           { echo nl2br("\n\n You purchased: $hat, remaing balance is: $balance");
+                            $_SESSION['balance'] = $balance;			
+			}
           		     else
           		     	echo nl2br("\n\n Purchase failed"); 
                            }
@@ -170,7 +171,7 @@ session_start();
 <body>
 <br><br>
 <footer>
-<a href = "loggedIn.php"> Back</a> <br>
+<a href = "loggedin.php"> Back</a> <br>
 </footer>
 </body>
 </html>
