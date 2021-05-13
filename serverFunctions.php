@@ -168,7 +168,7 @@ function getWins($username)
 {
 	//returns the amounts of wins a user has
 	$mydb = dbConnect();
-	$targetSQL = "SELECT wins FROM users WHERE username='$username'");
+	$targetSQL = "SELECT wins FROM users WHERE username='$username'";
 	logData($targetSQL);
 	$wins = $mydb->query($targetSQL);
 	return $wins;
