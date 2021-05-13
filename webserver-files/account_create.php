@@ -27,7 +27,7 @@
 		</main>
 	<main class="trueMain">
 <?php
-            $salt = 'DoN0tP4s5My5erv3r'
+            $salt = 'DoN0tP4s5My5erv3r';
             ini_set('display_errors',1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL ^ E_DEPRECATED);
