@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG=~/git/IT490Spring2021/distribution.conf
+CONFIG=~/bin/distribution.conf
 STATUS=0
 COUNT=0
 EXCLUDE=0
