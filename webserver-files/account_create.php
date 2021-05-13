@@ -25,7 +25,8 @@
 			<div class="login_button"><br> <a href="index.php"> Login</a><br></div>
 
 		</main>
-        <main class="trueMain">
+	<main class="trueMain">
+<?php
             $salt = 'DoN0tP4s5My5erv3r'
             ini_set('display_errors',1);
             ini_set('display_startup_errors', 1);
@@ -70,5 +71,5 @@
         </main>
 	</body>
 </html>
-<?php 
+ 
 
