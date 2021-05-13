@@ -32,6 +32,12 @@ echo $time
 if [[ $ONSTANDBY != 1 ]]
 then
 	echo "Not on standby"
+	cp -r /var/www/html /home/tim/bin/webserver/
+	# For server logs
+	echo "$time:" >> "$LOGFILE"
+	echo "Webserver backup made" >> "$LOGFILE"
+	# For local logs
+	echo "Webserver backup made"
 	exit
 fi
 
