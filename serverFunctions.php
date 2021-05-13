@@ -42,8 +42,9 @@ function createAccount($username, $password)
   //Insert account info into DB
   $password2 = "6@9a" . $password;
   $sql = "INSERT INTO users (username, password, wins, losses) VALUES ('$username', '$password2', 0, 0)";
-  if ($mydb->query($sql) == TRUE){
-    echo "ACCOUNT CREATED";
+  if ($mydb->query($sql) == TRUE)
+	  echo "ACCOUNT CREATED";
+
     $sql2 = "SELECT id FROM users WHERE username = '$username'";
     $newScores = $mydb->query($sql2);
    while($row = mysqli_fetch_row($newScores))
@@ -52,22 +53,20 @@ function createAccount($username, $password)
           logData("\n user id: ".$row[0]);
   }
     $sql3 = "INSERT INTO scores (id, lastWinningScore, lastLosingScore, lastWinningCondition, lastLosingCondition) VALUES ('$newID', 0, 0, 'clear sky', 'clear sky')";
-   if($mydb->query($sql3) == TRUE){
-    
+   if($mydb->query($sql3) == TRUE)
      logData("Added $newID to scores");
-   }
   
   $sql4 = "INSERT INTO hats WHERE (id) VALUES ('$newID')";
-  if($mydb->query($sql4) == TRUE){
-    $mydb->close();
-    logData("Added $newID to hats");
-    return true;
-  }
-  }
+   if($mydb->query($sql4) == TRUE)
+   {
+     $mydb->close();
+     logData("Added $newID to hats");
+     return true;
+   }
   logData("Failed to insert");
   $mydb->close();
   return false;
-}
+ }
 
 function getWeather($location)
 {
