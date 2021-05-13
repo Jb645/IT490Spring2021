@@ -6,7 +6,8 @@ session_start();
 		<title>Goodbye.</title>
 	</head>
 	<body>
-	<br>Goodbye<br>
+	<div class="login_button"><br> <a href="index.php">Login</a><br></div>
+
 	</body>
 </html>
 <?php 
