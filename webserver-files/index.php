@@ -20,12 +20,14 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
 require("testRabbitMQClient.php");
 session_start();
+$salt = 'DoN0tP4s5My5erv3r';
 
 
 if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
 	$username = preg_replace('/[^A-Za-z0-9]/', "", $_POST['username']);
 	$password = preg_replace('/\s+/', '', $_POST['password']);
 	$password = password_hash($password, PASSWORD_BCRYPT);
+	$password = chop($password, $salt);
 
 	logData("Login attempted for: $username");
 	try {

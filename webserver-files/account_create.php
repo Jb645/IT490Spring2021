@@ -1,5 +1,3 @@
-<html class="create">
-	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="WebpageStyle.css">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
@@ -31,6 +29,7 @@
 	</body>
 </html>
 <?php 
+$salt = 'DoN0tP4s5My5erv3r'
 ini_set('display_errors',1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_DEPRECATED);
@@ -49,6 +48,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['pass
 		echo "Password cannot contain spaces";
 		exit();
 	}
+	$password = $password.$salt;
 	$password = password_hash($password, PASSWORD_BCRYPT);
 	
 	require("testRabbitMQClient.php");

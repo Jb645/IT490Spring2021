@@ -101,38 +101,8 @@ session_start();
                         $achievement4 = 20;
                         $achievement5 = 1000;
                         $wins = getWins($username);
-                        if ($achievement5 <= $wins)
-                        {
-                           echo $killimage5;
-                           echo $killimage4;
-                           echo $killimage3;
-                           echo $killimage2;
-                           echo $killimage1;
-                        }
-                        else if ($achievement4 < $wins)
-                        {
-                          echo $killimage4;
-                          echo $killimage3;
-                          echo $killimage2;
-                          echo $killimage1;
-                        }
-                        else if ($achievement3 < $wins)
-                        {
-                         echo $killimage3;
-                         echo $killimage2;
-                         echo $killimage1;
-                        }
-                        else if ($achievement2 < $wins)
-	                {
-                         echo $killimage2;
-                         echo $killimage1;
-                        }
-                        else if ($achievement1 < $wins)
-                        {
-                         echo $killimage2;
-                        }
-
-                  ?>
+  
+	              ?>
 		</p>
                 <ul>
                     <li><img id="kill" src="Images/Kills/kill_off.png" alt="kill"> </li>
@@ -158,7 +128,7 @@ session_start();
 
 
     <script type="text/javascript">
-        var wins = 30;
+	    var wins = <?php echo(json_encode($wins));?>;
         if(wins >= 10){
             let image = document.getElementById("kill").src = "Images/Kills/kill.png";
         }
