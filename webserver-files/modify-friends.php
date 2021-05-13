@@ -59,50 +59,52 @@ session_start();
 	<input type="submit" value="Remove friend"/>
 		</form>
 	</main>
+
+	<main class="trueMain">ini_set('display_errors',1);
+                           ini_set('display_startup_errors', 1);
+                           error_reporting(E_ALL ^ E_DEPRECATED);
+
+                           require("testRabbitMQClient.php");
+
+                           $username = $_SESSION['login'];
+
+                           if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
+                           {
+                           	//echo "Session is good.\n";
+                           }
+                           else
+                           {
+                           	header("Location: index.php");
+                           }
+
+                           if(isset($_POST['addfriend']) && !isset($_POST['removefriend']) && !empty($_POST['addfriend'])){
+                           	$friendToAdd = preg_replace('/[^A-Za-z0-9]/', "",$_POST['addfriend']);
+
+                           	$added = amqpAddFriend($username, $friendToAdd);
+                           	if($added)
+                           		echo $friendToAdd . " has been added";
+                           	else
+                           		echo "Failed to add: " . $friendToAdd;
+                           }
+
+                           if(isset($_POST['removefriend']) && !isset($_POST['addfriend']) && !empty($_POST['removefriend'])){
+                           	$friendToRm = preg_replace('/[^A-Za-z0-9]/', "",$_POST['removefriend']);
+
+                           	$removed = amqpRmFriend($username, $friendToRm);
+                           	var_dump($removed);
+                           	if($removed)
+                           	{
+                           		echo $removed . " has been removed";
+                           	}
+                           	else
+                           	{
+                           		echo "Failed to remove: " . $friendToRm;
+                           	}
+                           }
+                           ?> </main>
 	<footer><a href = "friends.php"> Back</a> </footer>
 
 	</body>
 </html>
 <?php 
-ini_set('display_errors',1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL ^ E_DEPRECATED);
 
-require("testRabbitMQClient.php");
-
-$username = $_SESSION['login'];
-
-if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
-{
-	echo "Session is good.\n";
-}
-else
-{
-	header("Location: index.php");
-}
-
-if(isset($_POST['addfriend']) && !isset($_POST['removefriend']) && !empty($_POST['addfriend'])){
-	$friendToAdd = preg_replace('/[^A-Za-z0-9]/', "",$_POST['addfriend']);
-
-	$added = amqpAddFriend($username, $friendToAdd);
-	if($added)
-		echo $friendToAdd . " has been added";
-	else
-		echo "Failed to add: " . $friendToAdd;
-}
-
-if(isset($_POST['removefriend']) && !isset($_POST['addfriend']) && !empty($_POST['removefriend'])){
-	$friendToRm = preg_replace('/[^A-Za-z0-9]/', "",$_POST['removefriend']);
-	
-	$removed = amqpRmFriend($username, $friendToRm);
-	var_dump($removed);
-	if($removed)
-	{
-		echo $removed . " has been removed";
-	}
-	else
-	{
-		echo "Failed to remove: " . $friendToRm;
-	}
-}
-?> 

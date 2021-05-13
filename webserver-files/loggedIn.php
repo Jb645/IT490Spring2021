@@ -61,7 +61,7 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
 {
-	echo "Session is good.\n";
+	//echo "Session is good.\n";
 }
 else
 {

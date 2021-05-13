@@ -25,48 +25,50 @@
 			<div class="login_button"><br> <a href="index.php"> Login</a><br></div>
 
 		</main>
+        <main class="trueMain">
+            $salt = 'DoN0tP4s5My5erv3r'
+            ini_set('display_errors',1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL ^ E_DEPRECATED);
+            session_start();
 
+            if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
+                $username = $_POST['username'];
+                if(preg_match("[\W]", $username) || preg_match('/\s+/', $username))
+                {
+                    echo "Username cannot contain symbols or spaces";
+                    exit();
+                }
+                $password = $_POST['password'];
+                if(preg_match('/\s+/', $password))
+                {
+                    echo "Password cannot contain spaces";
+                    exit();
+                }
+                $password = $password.$salt;
+                $password = password_hash($password, PASSWORD_BCRYPT);
+
+                require("testRabbitMQClient.php");
+                try {
+                    $response = amqpCreateAccount($username, $password);
+                }
+                catch(Exception $e){
+                    echo $e->getMessage();
+                    exit();
+                }
+                var_dump($response);
+                if($response)
+                {
+                    echo "Account created!";
+                }
+                else
+                {
+                    echo "Name is taken";
+                }
+            }
+            ?>
+        </main>
 	</body>
 </html>
 <?php 
-$salt = 'DoN0tP4s5My5erv3r'
-ini_set('display_errors',1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL ^ E_DEPRECATED);
-session_start();
 
-if(isset($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])){
-	$username = $_POST['username'];
-	if(preg_match("[\W]", $username) || preg_match('/\s+/', $username))
-	{
-		echo "Username cannot contain symbols or spaces";
-		exit();
-	}
-	$password = $_POST['password'];
-	if(preg_match('/\s+/', $password))
-	{
-		echo "Password cannot contain spaces";
-		exit();
-	}
-	$password = $password.$salt;
-	$password = password_hash($password, PASSWORD_BCRYPT);
-	
-	require("testRabbitMQClient.php");
-	try {
-		$response = amqpCreateAccount($username, $password);
-	}
-	catch(Exception $e){
-		echo $e->getMessage();
-		exit();
-	}
-	var_dump($response);
-	if($response)
-	{
-		echo "Account created!";
-	}
-	else
-	{
-		echo "Name is taken";
-	}
-}
-?> 

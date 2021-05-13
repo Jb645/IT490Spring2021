@@ -54,7 +54,7 @@ session_start();
 
            if(isset ($_SESSION['login']) && !empty($_SESSION['login']))
            {
-            echo nl2br("Session is good\n");
+            //echo nl2br("Session is good\n");
             $users = amqpLeaderboard();
             echo nl2br("\n\nTop 10: \n");
             echo nl2br("\nName | Wins | Losses\n--------------------------------");
